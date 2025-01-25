@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AchievementData" load_steps=2 format=3 uid="uid://daej2f36v5kb8"]
+
+[ext_resource type="Script" path="res://achievement_data.gd" id="1_cbt7t"]
+
+[resource]
+script = ExtResource("1_cbt7t")
+hasBeenActivated = false
+scoreTreshold = 100.0
+rewardText = ""

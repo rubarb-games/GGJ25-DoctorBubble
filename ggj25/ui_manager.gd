@@ -12,8 +12,17 @@ var bubbleResourceCounter:Array[ColorRect]
 @export var endMenuHandle:Control
 
 @export var scoreboardHandle:Label
+@export var scoreboardPopupHandle:Control
+@export var scoreboardPopupLabelHandle:Label
+@export var scoreboardPopupImageHandle:Sprite2D
+@export var scoreboardPopupCurve:Curve
+@export var scoreboardPopupRotateCurve:Curve
+
+@export var backgroundImage:TextureRect
+@export var backgroundRotationCurve:Curve
 
 var scoreboardUpdateCounter:float = 0.0
+@export var allAchiData:Array[AchiData]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,6 +41,11 @@ func _ready():
 	Globals.totalBubbleResources = bubbleResourceCounter.size()
 	Globals.bubbleResources = Globals.totalBubbleResources
 	scoreboardHandle.text = ""
+	scoreboardPopupHandle.modulate.a = 0
+	
+	SignalManager.goingToStartMenu.emit()
+	
+	setupBackground()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -40,7 +54,19 @@ func _process(delta):
 	if (scoreboardUpdateCounter > 1.0):
 		scoreboardUpdateCounter = 0
 		scoreboardHandle.text = str(round(Globals.totalProgress))
+		checkAchievement()
 		SignalManager.scoreboardUpdated.emit()
+		
+func checkAchievement():
+	var data:AchiData
+	for d in range(allAchiData.size()):
+		if (!allAchiData[d].hasBeenActivated and Globals.totalProgress > allAchiData[d].scoreTreshold):
+			allAchiData[d].hasBeenActivated = true
+			ScoreboardPopup(allAchiData[d].rewardText,allAchiData[d].rewardSprite)
+
+func setupBackground():
+	var s = SimonTween.new()
+	s.createTween(backgroundImage,"rotation",360,2000,backgroundRotationCurve).setLoops(-1)
 
 func updateResources():
 	for i in range(bubbleResourceCounter.size()):
@@ -79,3 +105,16 @@ func OnMenuButtonPressed(butt):
 			SignalManager.restartingGame.emit()
 		"tutorial":
 			SignalManager.goingToGame.emit()
+
+func ScoreboardPopup(text:String,sp:Texture):
+	var s = SimonTween.new()
+	var a = SimonTween.new()
+	scoreboardPopupLabelHandle.text = text
+	scoreboardPopupImageHandle.texture = sp
+	scoreboardPopupHandle.modulate.a = 0
+	scoreboardPopupHandle.scale = Vector2(0.5,0.5)
+	a.createTween(scoreboardPopupHandle,"scale",Vector2(0.5,0.5),1.5)
+	await s.createTween(scoreboardPopupHandle,"modulate:a",1,2,scoreboardPopupCurve).anotherParallel().\
+	createTween(scoreboardPopupImageHandle,"rotation",deg_to_rad(360),1,scoreboardPopupRotateCurve).tweenDone
+	scoreboardPopupHandle.modulate.a = 0
+	scoreboardPopupHandle.scale = Vector2(1,1)

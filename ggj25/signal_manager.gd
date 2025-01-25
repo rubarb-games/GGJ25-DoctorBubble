@@ -18,3 +18,8 @@ signal cameraInPlaceForStart
 
 signal failedBubble
 signal scoreboardUpdated
+
+signal hitByBullet
+
+#args: number
+signal scoreMilestone

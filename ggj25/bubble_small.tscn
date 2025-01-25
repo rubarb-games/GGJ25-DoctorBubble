@@ -1,7 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://6s5l712qmp4v"]
+[gd_scene load_steps=8 format=3 uid="uid://6s5l712qmp4v"]
 
 [ext_resource type="Script" path="res://bubble_controller.gd" id="1_23f5f"]
 [ext_resource type="Curve" uid="uid://1oqcp6ahjqn8" path="res://bubble_jiggle_curve.tres" id="2_pe12n"]
+[ext_resource type="Texture2D" uid="uid://bifdhg86c6i3l" path="res://assets/art/bubbleA.png" id="3_shpo5"]
+
+[sub_resource type="Curve" id="Curve_y43hf"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.164678, 0.304624), 0.0, 0.0, 0, 0, Vector2(0.264916, -0.296464), 0.0, 0.0, 0, 0, Vector2(0.424821, 0.116047), 0.0, 0.0, 0, 0, Vector2(0.670644, -0.0371714), 0.0, 0.0, 0, 0, Vector2(1, -0.00181317), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Curve" id="Curve_dubbs"]
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.138425, 1.00997), 0.0, 0.0, 0, 0, Vector2(0.27685, 0.762466), 0.0, 0.0, 0, 0, Vector2(0.415274, 1.04533), 0.0, 0.0, 0, 0, Vector2(0.756563, 0.998187), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_045f2"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.174224, 0.422484), 0.0, 0.0, 0, 0, Vector2(0.811456, -0.838622), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f75tu"]
 size = Vector2(64, 64)
@@ -12,8 +28,20 @@ disable_mode = 1
 collision_layer = 4
 script = ExtResource("1_23f5f")
 playerTouchCurve = ExtResource("2_pe12n")
+bubbleWobbleCurve = SubResource("Curve_y43hf")
+bubbleGrowCurve = SubResource("Curve_dubbs")
+bubbleExplodeCurve = SubResource("Curve_045f2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -38.0
+offset_top = -38.0
+offset_right = 90.0
+offset_bottom = 90.0
+scale = Vector2(0.602004, 0.602004)
+texture = ExtResource("3_shpo5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(64, 64)
 offset_left = -32.0
 offset_top = -32.0

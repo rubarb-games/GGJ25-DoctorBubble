@@ -28,7 +28,13 @@ position = Vector2(0, -256)
 position = Vector2(64, -256)
 
 [node name="LevelBlock13" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(256, -256)
+position = Vector2(384, -64)
+
+[node name="LevelBlock15" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(448, -64)
+
+[node name="LevelBlock16" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(448, -128)
 
 [node name="LevelBlock14" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(320, -256)
+position = Vector2(320, -64)

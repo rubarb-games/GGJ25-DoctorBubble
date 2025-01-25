@@ -19,6 +19,7 @@ func _ready():
 	SignalManager.restartingGame.connect(OnStartingGame)
 	SignalManager.endGame.connect(OnEndGame)
 	SignalManager.cameraInPlaceForStart.connect(OnCameraInPlace)
+	SignalManager.hitByBullet.connect(OnHitByBullet)
 	
 	Globals.playerHandle = self
 
@@ -114,3 +115,7 @@ func playerOffscreen():
 func playerDie():
 	SignalManager.endGame.emit()
 	
+func OnHitByBullet(body):
+	if (body == self):
+		if (playerActive):
+			playerDie()

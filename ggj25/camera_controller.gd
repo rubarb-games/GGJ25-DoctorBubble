@@ -26,7 +26,6 @@ func _process(delta):
 		cameraState.IDLE:
 			pass
 		cameraState.FOLLOWING:
-			print("FOLLOWING")
 			if (Globals.playerHandle.global_position.y < (Globals.GetCamYPos() - Globals.GetHalfViewHeight())+(Globals.cellSize*2)):
 				self.global_position = lerp(self.global_position,Vector2(self.global_position.x,Globals.playerHandle.global_position.y),delta*3)			
 			else:

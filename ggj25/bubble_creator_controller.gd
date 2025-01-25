@@ -52,6 +52,7 @@ func _process(delta):
 		for a in range(bubbleCreatorHandle.points.size()):	
 			if (pointsAtGoal > bubbleCreatorHandle.points.size()-1):
 				mS = mouseState.IDLE
+				finishCreatingBubble()
 				break
 			if (!lineGoalPositions[a].isComplete):
 				lineGoalPositions[a].progress += delta
@@ -69,6 +70,7 @@ func _process(delta):
 		lastMousePos = currentMousePos
 		mS = mouseState.PRESSED
 		bubbleCreatorHandle.points = []
+		startCreatingBubble()
 
 	if (Input.is_action_pressed("mouseInteract") and mS == mouseState.PRESSED):
 		currentMousePos = get_global_mouse_position()
@@ -159,6 +161,16 @@ func findLineCircleGoalPositions(line:Line2D,center:Vector2):
 		lineGoalPositions[point].position = goalPosition
 		lineGoalPositions[point].startingPoint = bubbleCreatorHandle.points[point]
 	return true
+
+func startCreatingBubble():
+	bubbleCreatorHandle.default_color = Color.WHITE
+	pass
+	
+func finishCreatingBubble():
+	var s = SimonTween.new()
+	bubbleCreatorHandle.default_color.a = 1
+	await s.createTween(bubbleCreatorHandle,"default_color:a",-1,0.5).tweenDone
+	bubbleCreatorHandle.default_color.a = 0
 
 func findBound(line:Line2D,center:Vector2):
 	var bounds:Vector4 = Vector4(center.x,center.x,center.y,center.y)

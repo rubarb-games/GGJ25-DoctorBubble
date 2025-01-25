@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c5bw5krxyi4lj"]
+[gd_scene load_steps=28 format=3 uid="uid://c5bw5krxyi4lj"]
 
 [ext_resource type="Script" path="res://game_manager.gd" id="1_15tj7"]
 [ext_resource type="Script" path="res://player_controller.gd" id="2_4ndox"]
@@ -7,13 +7,19 @@
 [ext_resource type="Script" path="res://bubble_creator_controller.gd" id="3_7nihn"]
 [ext_resource type="PackedScene" uid="uid://bnrx5leuw1nrx" path="res://assets/levelSegmentB_startPlatform.tscn" id="4_5sriq"]
 [ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="4_rd5yr"]
+[ext_resource type="PackedScene" uid="uid://bwj4ighb7trbc" path="res://assets/enemy_block_arrow_trap.tscn" id="5_cmqkf"]
 [ext_resource type="PackedScene" uid="uid://0ff4vj07cnnc" path="res://bubble_medium.tscn" id="6_1cht3"]
+[ext_resource type="PackedScene" uid="uid://2dnb2ip8287l" path="res://assets/arrow_bullet.tscn" id="6_dxrct"]
 [ext_resource type="PackedScene" uid="uid://6s5l712qmp4v" path="res://bubble_small.tscn" id="6_eoekv"]
 [ext_resource type="PackedScene" uid="uid://rrsf4s44cf2x" path="res://bubble_large.tscn" id="7_h67ck"]
 [ext_resource type="Script" path="res://ui_manager.gd" id="9_8ysmm"]
 [ext_resource type="Script" path="res://camera_controller.gd" id="9_52gyi"]
+[ext_resource type="Texture2D" uid="uid://bafbrfdjw1xds" path="res://icon.svg" id="15_412vw"]
+[ext_resource type="Script" path="res://achievement_data.gd" id="15_ivmo0"]
+[ext_resource type="Texture2D" uid="uid://cedd572q1hiv7" path="res://assets/art/waffle.png" id="17_mbsux"]
+[ext_resource type="Texture2D" uid="uid://fnmyk7wjm630" path="res://assets/art/background.png" id="18_duygc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mjme"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_glqgn"]
 size = Vector2(64, 64)
 
 [sub_resource type="Curve" id="Curve_a1pv5"]
@@ -25,6 +31,40 @@ point_count = 5
 [sub_resource type="Curve" id="Curve_k31nm"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.117978, 1), 0.0, 0.0, 0, 0, Vector2(0.331461, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
+
+[sub_resource type="Curve" id="Curve_8o80u"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.221053, 1), 0.0, 0.0, 0, 0, Vector2(0.763158, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_rcxe1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.112172, 0.7466), 2.04346, 2.04346, 0, 0, Vector2(0.584725, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_u8fcg"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.109785, 0.116047), 0.0, 0.0, 0, 0, Vector2(0.295943, -0.343608), 0.0, 0.0, 0, 0, Vector2(0.436754, 0.222121), 0.0, 0.0, 0, 0, Vector2(0.563246, -0.284678), 0.0, 0.0, 0, 0, Vector2(0.613365, 0.304624), 0.0, 0.0, 0, 0, Vector2(0.73747, -0.0725294), 0.0, 0.0, 0, 0, Vector2(0.794749, 0.0924751), 0.0, 0.0, 0, 0, Vector2(0.863962, -0.225748), 0.0, 0.0, 0, 0, Vector2(0.921241, 0.068903), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 11
+
+[sub_resource type="Resource" id="Resource_u78v5"]
+script = ExtResource("15_ivmo0")
+hasBeenActivated = false
+scoreTreshold = 100.0
+rewardSprite = ExtResource("15_412vw")
+rewardText = "100 points!!!"
+
+[sub_resource type="Resource" id="Resource_xgt63"]
+script = ExtResource("15_ivmo0")
+hasBeenActivated = false
+scoreTreshold = 200.0
+rewardSprite = ExtResource("15_412vw")
+rewardText = "200!! Hell yeah"
+
+[sub_resource type="Resource" id="Resource_6g558"]
+script = ExtResource("15_ivmo0")
+hasBeenActivated = false
+scoreTreshold = 250.0
+rewardSprite = ExtResource("17_mbsux")
+rewardText = "WAFFLEICIOUS"
 
 [node name="Scene" type="Node2D"]
 
@@ -48,12 +88,17 @@ position = Vector2(85, 191)
 [node name="LevelBlock14" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
 position = Vector2(17, 191)
 
+[node name="EnemyBlock_arrowTrap" parent="Level/LevelGeometry" instance=ExtResource("5_cmqkf")]
+
+[node name="ArrowBullet" parent="Level/LevelGeometry" instance=ExtResource("6_dxrct")]
+position = Vector2(-120, 784)
+
 [node name="LevelBlockSegmentB_startBar" parent="Level/LevelGeometry" instance=ExtResource("4_5sriq")]
 position = Vector2(0, 716)
 
 [node name="Specials" type="Node2D" parent="."]
 
-[node name="Player" type="RigidBody2D" parent="Specials"]
+[node name="Player" type="RigidBody2D" parent="Specials" groups=["player"]]
 position = Vector2(198, 334)
 collision_mask = 7
 mass = 0.25
@@ -66,7 +111,8 @@ script = ExtResource("2_4ndox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Specials/Player"]
 position = Vector2(32, 32)
-shape = SubResource("RectangleShape2D_4mjme")
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_glqgn")
 
 [node name="ColorRect" type="ColorRect" parent="Specials/Player"]
 custom_minimum_size = Vector2(64, 64)
@@ -106,7 +152,7 @@ width = 3.0
 
 [node name="Bubble_small" parent="." instance=ExtResource("6_eoekv")]
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle", "scoreboardPopupHandle", "scoreboardPopupLabelHandle", "scoreboardPopupImageHandle", "backgroundImage")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 10
@@ -121,6 +167,14 @@ startMenuHandle = NodePath("CanvasLayer/StartMenu")
 tutorialMenuHandle = NodePath("CanvasLayer/TutorialMenu")
 endMenuHandle = NodePath("CanvasLayer/EndMenu")
 scoreboardHandle = NodePath("CanvasLayer_IngameInterace/ScoreBoard")
+scoreboardPopupHandle = NodePath("CanvasLayer/Scoreboard")
+scoreboardPopupLabelHandle = NodePath("CanvasLayer/Scoreboard/Label")
+scoreboardPopupImageHandle = NodePath("CanvasLayer/Scoreboard/Sprite2D")
+scoreboardPopupCurve = SubResource("Curve_8o80u")
+scoreboardPopupRotateCurve = SubResource("Curve_rcxe1")
+backgroundImage = NodePath("CanvasLayer2/TextureRect_Background")
+backgroundRotationCurve = SubResource("Curve_u8fcg")
+allAchiData = Array[ExtResource("15_ivmo0")]([SubResource("Resource_u78v5"), SubResource("Resource_xgt63"), SubResource("Resource_6g558")])
 
 [node name="CanvasLayer_IngameInterace" type="CanvasLayer" parent="UI"]
 layer = 2
@@ -179,7 +233,39 @@ size_flags_vertical = 4
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI"]
 
+[node name="Scoreboard" type="Control" parent="UI/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(240, 400)
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/CanvasLayer/Scoreboard"]
+position = Vector2(240, 408)
+texture = ExtResource("15_412vw")
+
+[node name="Label" type="Label" parent="UI/CanvasLayer/Scoreboard"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -42.0
+offset_top = -11.5
+offset_right = 42.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+text = "HELL YEAH"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="StartMenu" type="Control" parent="UI/CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -319,6 +405,18 @@ offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Got it"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="UI"]
+layer = -1
+
+[node name="TextureRect_Background" type="TextureRect" parent="UI/CanvasLayer2"]
+z_index = -1
+offset_left = -240.0
+offset_right = 784.0
+offset_bottom = 1024.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(512, 512)
+texture = ExtResource("18_duygc")
 
 [connection signal="body_entered" from="Specials/Player" to="Specials/Player" method="_on_body_entered"]
 [connection signal="pressed" from="UI/CanvasLayer/StartMenu/Button_StartGame" to="UI" method="OnMenuButtonPressed" binds= ["start"]]

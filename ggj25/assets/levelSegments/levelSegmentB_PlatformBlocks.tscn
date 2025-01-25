@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcoe7b13hiy7b"]
+
+[ext_resource type="Script" path="res://assets/levelSegments/level_segment_controller.gd" id="1_cpfon"]
+[ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="2_sx2yl"]
+[ext_resource type="PackedScene" uid="uid://bwj4ighb7trbc" path="res://assets/enemy_block_arrow_trap.tscn" id="3_8gra4"]
+
+[node name="LevelBlockGroupA" type="Node2D" node_paths=PackedStringArray("sizeHandle")]
+script = ExtResource("1_cpfon")
+sizeHandle = NodePath("ColorRect_Size")
+
+[node name="ColorRect_Size" type="ColorRect" parent="."]
+offset_top = -320.0
+offset_right = 40.0
+color = Color(1, 1, 1, 0)
+
+[node name="LevelBlock15" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(320, -64)
+
+[node name="LevelBlock16" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(384, -64)
+
+[node name="LevelBlock17" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(448, -64)
+
+[node name="LevelBlock11" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(256, -64)
+
+[node name="LevelBlock9" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(0, -64)
+
+[node name="LevelBlock10" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(0, -256)
+
+[node name="LevelBlock12" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(192, -256)
+
+[node name="LevelBlock13" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(256, -256)
+
+[node name="LevelBlock18" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(256, -320)
+
+[node name="LevelBlock14" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(320, -256)
+
+[node name="LevelBlock19" parent="." instance=ExtResource("2_sx2yl")]
+position = Vector2(384, -128)
+
+[node name="EnemyBlock_arrowTrap" parent="." instance=ExtResource("3_8gra4")]
+position = Vector2(0, -128)

@@ -16,14 +16,38 @@ var lifeTime:float = 0
 var lifeTimeTotal:float = Globals.bubbleLifeTotal
 var bubbleSink:float = 0.5
 
+@export var bubbleWobbleCurve:Curve
+@export var bubbleGrowCurve:Curve
+@export var bubbleExplodeCurve:Curve
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalManager.hitByBullet.connect(OnHitByBullet)
+	
 	bubbleSink *= bubbleSize
 	if (bubbleSize > 1):
 		dieOnPlayerLeave = false
 	if (bubbleSize > 2):
 		bouncePlayer = true
+		
+	startBubble()
 
+func wobbleBubble(fromZero:bool = false):
+	var s = SimonTween.new()
+	await s.createTween(self,"scale",Vector2(1,1),1,bubbleWobbleCurve).tweenDone
+	self.scale = Vector2(1,1)
+
+func startBubble(fromZero:bool = false):
+	var s = SimonTween.new()
+	self.scale = Vector2(0,0)
+	await s.createTween(self,"scale",Vector2(1,1),0.5,bubbleGrowCurve).tweenDone
+	self.scale = Vector2(1,1)
+
+func explodeBubble(fromZero:bool = false):
+	var s = SimonTween.new()
+	self.scale = Vector2(1,1)
+	await s.createTween(self,"scale",-Vector2(1,1),0.25,bubbleExplodeCurve).tweenDone
+	self.scale = Vector2(0,0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -51,6 +75,7 @@ func _physics_process(delta):
 		bubbleDie()
 
 func bubbleDie():
+	await explodeBubble()
 	self.queue_free()
 
 func OnPlayerLeave():
@@ -59,4 +84,9 @@ func OnPlayerLeave():
 		bubbleDie()
 
 func OnPlayerTouch():
+	bubbleWobbleCurve
 	playerIsStandingOn = true
+
+func OnHitByBullet(body):
+	if (body == self):
+		bubbleDie()

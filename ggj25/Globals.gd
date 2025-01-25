@@ -20,6 +20,9 @@ var spawnNewLevelSegmentStartingPoint = 192.0
 var playerHandle:PlayerController
 var cameraHandle:CameraController
 
+var Enemy_arrowTrapFireRate:float = 2.0
+var Bullet_lifetime:float = 5.0
+
 func GetViewSize():
 	return get_viewport().size
 

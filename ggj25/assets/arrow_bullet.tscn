@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://2dnb2ip8287l"]
+
+[ext_resource type="Script" path="res://bullet_controller.gd" id="1_ofmih"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xr335"]
+size = Vector2(16, 16)
+
+[node name="ArrowBullet" type="RigidBody2D" groups=["bullet"]]
+position = Vector2(64, 651)
+collision_layer = 2
+custom_integrator = true
+script = ExtResource("1_ofmih")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_xr335")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+offset_left = -8.0
+offset_top = -11.0
+offset_right = 8.0
+offset_bottom = 5.0
+color = Color(0.737697, 0.170018, 0.274683, 1)
+
+[connection signal="body_entered" from="." to="." method="OnBulletCollision"]
