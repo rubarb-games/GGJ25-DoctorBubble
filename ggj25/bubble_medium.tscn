@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://0ff4vj07cnnc"]
+[gd_scene load_steps=5 format=3 uid="uid://0ff4vj07cnnc"]
 
 [ext_resource type="Script" path="res://bubble_controller.gd" id="1_7gq8l"]
 [ext_resource type="Curve" uid="uid://1oqcp6ahjqn8" path="res://bubble_jiggle_curve.tres" id="2_pevwl"]
+[ext_resource type="Texture2D" uid="uid://bifdhg86c6i3l" path="res://assets/art/bubbleA.png" id="3_a4tm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ffq76"]
 size = Vector2(128, 128)
@@ -14,12 +15,27 @@ script = ExtResource("1_7gq8l")
 bubbleSize = 2.0
 playerTouchCurve = ExtResource("2_pevwl")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-custom_minimum_size = Vector2(128, 128)
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="Control_VisualHandle" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Control_VisualHandle"]
+offset_left = -72.0
+offset_top = -72.0
+offset_right = 56.0
+offset_bottom = 56.0
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("3_a4tm0")
+
+[node name="ColorRect" type="ColorRect" parent="Control_VisualHandle"]
+visible = false
+custom_minimum_size = Vector2(64, 64)
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
 color = Color(0.875374, 0.305392, 0.742346, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

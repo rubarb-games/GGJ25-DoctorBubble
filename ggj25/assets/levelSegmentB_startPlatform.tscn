@@ -1,29 +1,93 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnrx5leuw1nrx"]
+[gd_scene load_steps=6 format=3 uid="uid://bnrx5leuw1nrx"]
 
 [ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="1_qfo2a"]
+[ext_resource type="Texture2D" uid="uid://c6hosmnh8dp4s" path="res://assets/art/blockA_AT.tres" id="2_700v1"]
+[ext_resource type="Texture2D" uid="uid://dcyiwawivlpxw" path="res://assets/art/blockB_AT.tres" id="3_0bold"]
+[ext_resource type="Texture2D" uid="uid://s6pfgt5re6yl" path="res://assets/art/blockC_AT.tres" id="4_saeoe"]
+[ext_resource type="Texture2D" uid="uid://dml5yw4jhvwm8" path="res://assets/art/blockE_AT.tres" id="5_usxf0"]
 
 [node name="LevelBlockSegmentB_startBar" type="Node2D"]
 
-[node name="LevelBlock" parent="." instance=ExtResource("1_qfo2a")]
+[node name="Control" type="Control" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelBlock" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(0, 0)
 
-[node name="LevelBlock2" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock2" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(64, 0)
 
-[node name="LevelBlock3" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock3" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(128, 0)
 
-[node name="LevelBlock4" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock4" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(192, 0)
 
-[node name="LevelBlock5" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock5" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(256, 0)
 
-[node name="LevelBlock6" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock6" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(320, 0)
 
-[node name="LevelBlock7" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock7" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(384, 0)
 
-[node name="LevelBlock8" parent="." instance=ExtResource("1_qfo2a")]
+[node name="LevelBlock8" parent="Control" instance=ExtResource("1_qfo2a")]
 position = Vector2(448, 0)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 320.0
+offset_top = 64.0
+offset_right = 425.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.619887, 0.619887)
+texture = ExtResource("2_700v1")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_top = 64.0
+offset_right = 105.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.619887, 0.619887)
+texture = ExtResource("3_0bold")
+
+[node name="TextureRect3" type="TextureRect" parent="."]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 326.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.319193, 0.319193)
+texture = ExtResource("4_saeoe")
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+offset_left = 256.0
+offset_top = 64.0
+offset_right = 454.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.319193, 0.319193)
+texture = ExtResource("4_saeoe")
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+offset_left = 448.0
+offset_top = 64.0
+offset_right = 646.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.319193, 0.319193)
+texture = ExtResource("5_usxf0")
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+offset_left = 192.0
+offset_top = 64.0
+offset_right = 390.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.319193, 0.319193)
+texture = ExtResource("5_usxf0")

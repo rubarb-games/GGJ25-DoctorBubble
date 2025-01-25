@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtsvx7gk3aibr"]
+
+[ext_resource type="PackedScene" uid="uid://c71w0k5obahl3" path="res://assets/art/doctorBubble/DoctorBubble.glb" id="1_1caty"]
+[ext_resource type="Texture2D" uid="uid://tenigva4c6dr" path="res://assets/art/doctorBubble/DoctorBubble_doctorBubble.png" id="2_kv4j6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w0sc0"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("2_kv4j6")
+
+[node name="DoctorBubble" instance=ExtResource("1_1caty")]
+
+[node name="Plane_002" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_w0sc0")

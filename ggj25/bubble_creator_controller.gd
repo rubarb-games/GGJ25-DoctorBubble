@@ -55,7 +55,7 @@ func _process(delta):
 				finishCreatingBubble()
 				break
 			if (!lineGoalPositions[a].isComplete):
-				lineGoalPositions[a].progress += delta
+				lineGoalPositions[a].progress += delta*2.5
 				bubbleCreatorHandle.points[a] = lerp(lineGoalPositions[a].startingPoint, lineGoalPositions[a].position,perfectLineJiggleCurve.sample(lineGoalPositions[a].progress))
 				if (lineGoalPositions[a].progress > 1):
 					bubbleCreatorHandle.points[a] = lineGoalPositions[a].position

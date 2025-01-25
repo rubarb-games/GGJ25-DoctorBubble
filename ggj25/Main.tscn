@@ -1,13 +1,19 @@
-[gd_scene load_steps=28 format=3 uid="uid://c5bw5krxyi4lj"]
+[gd_scene load_steps=66 format=4 uid="uid://c5bw5krxyi4lj"]
 
+[ext_resource type="Texture2D" uid="uid://b4pfda6n6xdqy" path="res://assets/art/doctorBubble/DoctorBubble_animsA_doctorBubble.png" id="1_4i4pa"]
 [ext_resource type="Script" path="res://game_manager.gd" id="1_15tj7"]
+[ext_resource type="Texture2D" uid="uid://tenigva4c6dr" path="res://assets/art/doctorBubble/DoctorBubble_doctorBubble.png" id="1_cjqav"]
 [ext_resource type="Script" path="res://player_controller.gd" id="2_4ndox"]
 [ext_resource type="PackedScene" uid="uid://ccefuk7y8bgh" path="res://assets/levelSegments/levelSegmentA_PlatformBlocks.tscn" id="2_t3d2w"]
+[ext_resource type="Animation" uid="uid://dgxxdsfebfkjg" path="res://assets/art/doctorBubble/animations/DoctorBubble_death.res" id="2_wre70"]
 [ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="2_x8nan"]
 [ext_resource type="Script" path="res://bubble_creator_controller.gd" id="3_7nihn"]
+[ext_resource type="Animation" uid="uid://b3qy8saslf6fn" path="res://assets/art/doctorBubble/animations/DoctorBubble_idle.res" id="3_a30c3"]
 [ext_resource type="PackedScene" uid="uid://bnrx5leuw1nrx" path="res://assets/levelSegmentB_startPlatform.tscn" id="4_5sriq"]
+[ext_resource type="Animation" uid="uid://mii6peyhv7i3" path="res://assets/art/doctorBubble/animations/DoctorBubble_jumping.res" id="4_nxlb1"]
 [ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="4_rd5yr"]
 [ext_resource type="PackedScene" uid="uid://bwj4ighb7trbc" path="res://assets/enemy_block_arrow_trap.tscn" id="5_cmqkf"]
+[ext_resource type="Animation" uid="uid://r3ewc333a0t4" path="res://assets/art/doctorBubble/animations/DoctorBubble_walking.res" id="5_txd8n"]
 [ext_resource type="PackedScene" uid="uid://0ff4vj07cnnc" path="res://bubble_medium.tscn" id="6_1cht3"]
 [ext_resource type="PackedScene" uid="uid://2dnb2ip8287l" path="res://assets/arrow_bullet.tscn" id="6_dxrct"]
 [ext_resource type="PackedScene" uid="uid://6s5l712qmp4v" path="res://bubble_small.tscn" id="6_eoekv"]
@@ -16,11 +22,176 @@
 [ext_resource type="Script" path="res://camera_controller.gd" id="9_52gyi"]
 [ext_resource type="Texture2D" uid="uid://bafbrfdjw1xds" path="res://icon.svg" id="15_412vw"]
 [ext_resource type="Script" path="res://achievement_data.gd" id="15_ivmo0"]
+[ext_resource type="Texture2D" uid="uid://xiyta8e6hmt4" path="res://assets/art/nokia.png" id="16_sh8lr"]
 [ext_resource type="Texture2D" uid="uid://cedd572q1hiv7" path="res://assets/art/waffle.png" id="17_mbsux"]
+[ext_resource type="Texture2D" uid="uid://dgottarr0eh0l" path="res://assets/art/sneakers.png" id="17_xqx1v"]
 [ext_resource type="Texture2D" uid="uid://fnmyk7wjm630" path="res://assets/art/background.png" id="18_duygc"]
+[ext_resource type="Texture2D" uid="uid://bedfthcnhys8r" path="res://assets/art/Alarm.png" id="19_bgyuq"]
+[ext_resource type="Texture2D" uid="uid://uefjm7euxv8a" path="res://assets/art/NewYork.png" id="19_vmmuh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ck2pn"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_cjqav")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbh8v"]
+resource_name = "Material.001"
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_4i4pa")
+roughness = 0.5
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_uno7l"]
+resource_name = "DoctorBubble_animsA_Plane_002"
+_surfaces = [{
+"aabb": AABB(-0.0559857, -1.02672, -0.58381, 0.104091, 1.97649, 1.37995),
+"attribute_data": PackedByteArray("lD7pPgAAAABzzyE/AAAAAA5lMD/UBPg+h8M9PyJAuz50CjQ/7HxHPieDST+ESDc+SrpKP8BGyT3PICs/SFmvPfKxiz4AAAAAf7tmPjDd+D4EyDc+PjyqPio6Sz5ICWM+MMHQPWigQj4Jcec9aGKiPYTXez4woKU9ECdoPrSeAT/8mqw++EX3PgjpKD/qtvc+lD7pPpbY6T6Ph7A+Gt/pPmPK3T52Muo+smiLPhhVAD97Yxk/mpfnPj2HGj8QA/I+zdohP0Zi8D6UPuk+kJb1PpQ+6T7ezlo/VnZ9PvJ2Tz8xxi4/Fq5QPxAnaD60ngE/EVcwP1a6/T78mqw++EX3PgjpKD/qtvc+lD7pPpbY6T6Ph7A+Gt/pPmPK3T52Muo+smiLPhhVAD97Yxk/mpfnPj2HGj8QA/I+zdohP0Zi8D7TqnA/oEwGPxl7ej9mFL4+0iBLP1CnCT/IB0M/8hH8Pk7kRz+Eu8E+0iBLP1CnCT9t8Us/W9ArPyjPcD/MySk/06pwP6BMBj9t8Us/W9ArPwAAgD/YpF0/QlU7P1S3Qz8cL08/OiBkPwAAgD/uTFI/KM9wP8zJKT+WQTU/AACAP5Q+6T4AAIA/aGIBP9qVWD+UPuk+vqllP7OvFD9AOVU/xA8yP8CtaD+9EiU/irlaP7TCXj4AAIA/TlNDPnNRdT+uhrg+pJ5VP5Q+6T4AAIA/OuRdPkwFZD/lTok+Z4JZP7bDzz4yGFg/lD7pPnk7Yz/TqnA/oEwGPxl7ej9mFL4+0iBLP1CnCT/IB0M/8hH8Pk7kRz+Eu8E+0iBLP1CnCT9t8Us/W9ArPyjPcD/MySk/06pwP6BMBj9t8Us/W9ArPwAAgD/YpF0/QlU7P1S3Qz8cL08/OiBkPwAAgD/uTFI/KM9wP8zJKT8="),
+"bone_aabbs": [AABB(-0.0559857, -0.701345, -0.377657, 1.0062e-05, 0.804781, 0.924234), AABB(0.0481056, -0.0628921, -0.58381, 1.00769e-05, 1.01267, 1.37995), AABB(-0.03212, -0.537028, -0.541829, 0.0235387, 0.612884, 0.464841), AABB(0.0410244, -0.926325, -0.581802, 1.00173e-05, 0.455763, 0.536461), AABB(-0.03212, -0.537028, 0.286351, 0.0235387, 0.612884, 0.464841), AABB(0.0410244, -0.926325, 0.246378, 1.00173e-05, 0.455763, 0.536461), AABB(-0.0559857, -1.02672, -0.416064, 1.00359e-05, 0.33419, 0.504953), AABB(-0.0559857, -1.02356, 0.117374, 9.99868e-06, 0.331096, 0.529616)],
+"format": 34359745559,
+"index_count": 198,
+"index_data": PackedByteArray("CQATABAAFQAPAAkABAAAAAcAAAAOAAgADgALAA0ADQALAAwACwATAAoACgATAAkAEgAUAAAAAAALAA4AEwALABQACwAAABQAFQAJABAAAAAEABIAEgAEABYAFgAYABcAGAACABEAAgAYAAMAAwAWAAQAGAAWAAMABAAGAAUABwAAAAEABAAHAAYAHAAgAB4AIAAmACcAGQAmACAAIQAlABkAJAAbAB0AGwAkAB8AGwAfABkAJgAZACUAHAAaABkAHAAZACAAGwAZABoAIwAZAB8AGQAjACEAIwAfACIAKwAoACoAKAArACwAKAAsACkALgAwAC8ALgAtADAAMgA0ADUANQA0ADYANgAzADEANgA0ADMAOgA5ADgAOAA8ADcAPQA4ADsAOQA7ADgAPAA4AD0AQQBEAEUARABBAEAAQAA+AEMAQwA+AEIAQgA+AD8APgBAAEEASQBGAEgARgBJAEoARgBKAEcATABOAE0ATABLAE4AUABSAFMAUwBSAFQAVABRAE8AVABSAFEA"),
+"material": SubResource("StandardMaterial3D_wbh8v"),
+"name": "Material.001",
+"primitive": 3,
+"skin_data": PackedByteArray("AQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAEAAAAAAAAA//8AAAAAAAABAAAAAAAAAP//AAAAAAAAAQAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAAAAAAAAAAA//8AAAAAAAAAAAAAAAAAAP//AAAAAAAAAAAAAAAAAAD//wAAAAAAAAIAAAAAAAAA//8AAAAAAAACAAAAAAAAAP//AAAAAAAAAgAAAAAAAAD//wAAAAAAAAIAAAAAAAAA//8AAAAAAAACAAAAAAAAAP//AAAAAAAAAgAAAAAAAAD//wAAAAAAAAIAAAAAAAAA//8AAAAAAAACAAAAAAAAAP//AAAAAAAAAgAAAAAAAAD//wAAAAAAAAMAAAAAAAAA//8AAAAAAAADAAAAAAAAAP//AAAAAAAAAwAAAAAAAAD//wAAAAAAAAMAAAAAAAAA//8AAAAAAAADAAAAAAAAAP//AAAAAAAAAwAAAAAAAAD//wAAAAAAAAYAAAAAAAAA//8AAAAAAAAGAAAAAAAAAP//AAAAAAAABgAAAAAAAAD//wAAAAAAAAYAAAAAAAAA//8AAAAAAAAGAAAAAAAAAP//AAAAAAAABgAAAAAAAAD//wAAAAAAAAYAAAAAAAAA//8AAAAAAAAHAAAAAAAAAP//AAAAAAAABwAAAAAAAAD//wAAAAAAAAcAAAAAAAAA//8AAAAAAAAHAAAAAAAAAP//AAAAAAAABwAAAAAAAAD//wAAAAAAAAcAAAAAAAAA//8AAAAAAAAHAAAAAAAAAP//AAAAAAAABwAAAAAAAAD//wAAAAAAAAQAAAAAAAAA//8AAAAAAAAEAAAAAAAAAP//AAAAAAAABAAAAAAAAAD//wAAAAAAAAQAAAAAAAAA//8AAAAAAAAEAAAAAAAAAP//AAAAAAAABAAAAAAAAAD//wAAAAAAAAQAAAAAAAAA//8AAAAAAAAEAAAAAAAAAP//AAAAAAAABAAAAAAAAAD//wAAAAAAAAUAAAAAAAAA//8AAAAAAAAFAAAAAAAAAP//AAAAAAAABQAAAAAAAAD//wAAAAAAAAUAAAAAAAAA//8AAAAAAAAFAAAAAAAAAP//AAAAAAAABQAAAAAAAAD//wAAAAAAAA=="),
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 85,
+"vertex_data": PackedByteArray("ggpFPbUjcz9nC7Y9iQpFPbUjcz/LPYe+gApFPc0jnLw3lMG+hQpFPU+OXz4gDve+iApFPT1lDz/RKdC+iwpFPXV/Fz9QBhO/jgpFPQPSQD+TdBW/iQpFPWNNRz86g6y+ewpFPbQjcz8fnOg+bQpFPXQvt7xAogw/bwpFPejOkT7+GyQ/cwpFPQ2fAT/sYho/bwpFPYDTET+0z0s/cgpFPRiLSj+/I0Y/eApFPaq7ST8/FAI/bQpFPZnNgL147As/cgpFPXVIhLwHyqY+fwpFPXZmkrwgpKO+dwpFPeixFD1iC7Y9cwpFPaJJFD3j8J4+dwpFPfQTDz121gg+bwpFPdhnWL2eLuk+fQpFPcjBOD3WG0u+fQpFPb5RkDveOVS+fgpFPaJbMDw2a4e+L1FlvRO9Rz1hC7Y9OFFlvVyLM79dC7Y9QFFlvYTbHL/URAE/LlFlvctJH7/UGLu+OVFlvReDlbt47As/JlFlvZwBizxGXMG+NFFlvZTGLD0HyqY+J1FlvZS3JT0gpKO+L1FlvVvOwT1hC7Y9M1FlvTiawT3j8J4+MFFlvWH/vj121gg+N1FlvbEXtDueLuk+KVFlvUvW0z3WG0u+KVFlvYN6gD3eOVS+KFFlvduAjT02a4e+W8IMvNOqgb6zS+u+RcIMvGxamz1PtQq/dsIMvGcQkL4vWRS+d8IMvHZkPL6uq529aMIMvGv+dz1UIvG9OJADvS5Rir6LJCK+O5ADvat6Cb90qSi+NZADvY5tBb+ny+e+MpADvdfMeb5POue+OAkoPc4H+b5KTzO+OwkoPeMsYL/48BS/MwkoPdlRLL/Qtzm9MwkoPaUjbb/TPE2+PQkoPQ19Sb/48BS/PgkoPZTt8L6RHu2+MlFlvaJrg79aBtW+PFFlvaNrg79bC7Y9NlFlvfgCOL+ENDG8OlFlvcAqUr9cC7Y9M1FlvcRJMb+rfSW+MFFlvcQyWL8aP8i+MVFlvVdKPL/8SpS+RFFlve0Dg79z6Rc/RFFlvb+qcL8moSU/O1FlvSBFMb8/iJ0+O1Flve0Dg7/KYfA9QlFlvXESTr+wWBg/P1FlvacMOb/R9/s+OVFlvT44Nr9dHF4+OFFlvct+TL/LYfA9XsIMvNKqgb5/u7w+SMIMvG1amz2UnJI+ecIMvGcQkL5O7S4/esIMvHVkPL4kTkA/a8IMvG7+dz1P3zU/OZADvS1Rir53eis/PJADvat6Cb882Sk/NpADvY1tBb+NO8A+M5ADvdbMeb7jzMA+NwkoPc0H+b7ILyc/OwkoPeIsYL+JSnw+MgkoPdlRLL8caEg/MgkoPaYjbb9ltCA/PAkoPQ19Sb+KSnw+PQkoPZPt8L6j6Lo+/v//f//////+//9///8AgP7//3/+/////v//f/7////+//9//v////7//3/+/////v//f/7////+//9///////7//3/+/////v//f/7/AID+//9///////7//3/+/////v//f/7/AID+//9//v////7//3///wCA/v//f/7/AID+//9///8AgP7//3/+/wCA/v//f/7/AID+//9//v////7//3/+/wCA/v//f/7/AID+//9///////7//3/+/////v//f/7/AID+//9///////7//3///////v//f///AID+//9//v////7//3/+/wCA/v//f//////+//9//v////7//3/+/////v//f/7/AID+//9//v////7//3/+/wCA/v//f/7/AID+//9//v8AgP7//3///////v//f/7////+//9///8AgP7//3///wCA/v//f//////+//9///8AgP7//3///wCA/v//f/7////+//9///8AgP7//3/+/wCA/v//f///AID+//9//v8AgP7//3/+/wCA/v//f/7/AID+//9//v8AgP7//3/+/wCA/v//f///AID+//9//v////7//3///////v//f/7/AID+//9//v8AgP7//3/+/////v//f/7////+//9//v////7//3/+/wCA/v//f/7/AID+//9//v8AgP7//3///wCA/v//f/7/AID+//9//v////7//3/+/wCA/v//f/7////+//9///8AgP7//3/+/wCA/v//f/7////+//9///////7//3///wCA/v//f/7////+//9//v////7//3///////v//f/7////+//9//v8AgP7//3/+/wCA/v//f/7/AID+//9///8AgP7//3///////v//f///AIA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="Skin" id="Skin_sdfiv"]
+resource_name = "Skin"
+bind_count = 8
+bind/0/name = &"Root"
+bind/0/bone = -1
+bind/0/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00281293, 0.669123, -0.0924028)
+bind/1/name = &"Head"
+bind/1/bone = -1
+bind/1/pose = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00281293, -0.0517977, -0.0924028)
+bind/2/name = &"shoulder_R"
+bind/2/bone = -1
+bind/2/pose = Transform3D(1, -1.34111e-13, -1.10467e-06, 1.34111e-13, -1, 2.42808e-07, -1.10467e-06, -2.42808e-07, -1, 0.00281257, -0.110849, -0.320808)
+bind/3/name = &"Hand_R"
+bind/3/bone = -1
+bind/3/pose = Transform3D(1, -1.93992e-13, -1.60536e-06, 9.04536e-16, -1, 1.21404e-07, -1.60536e-06, -1.21404e-07, -1, 0.00281241, -0.504278, -0.31861)
+bind/4/name = &"Shoulder_L"
+bind/4/bone = -1
+bind/4/pose = Transform3D(1, 1.07828e-22, -1.58151e-06, 1.07828e-22, -1, -8.52656e-29, -1.58151e-06, -8.52656e-29, -1, 0.00281376, -0.110849, 0.527593)
+bind/5/name = &"Hand_L"
+bind/5/bone = -1
+bind/5/pose = Transform3D(1, -3.90216e-13, -1.60536e-06, -4.22758e-16, -1, 2.42808e-07, -1.60536e-06, -2.42808e-07, -1, 0.00281378, -0.504278, 0.529791)
+bind/6/name = &"Foot_R"
+bind/6/bone = -1
+bind/6/pose = Transform3D(1, -3.89414e-07, -4.44089e-16, 4.44089e-16, -8.64674e-23, 1, -3.89414e-07, -1, 8.64674e-23, 0.00281254, 0.13838, -1.00101)
+bind/7/name = &"Foot_L"
+bind/7/bone = -1
+bind/7/pose = Transform3D(1, -6.27833e-07, -4.44089e-16, 4.44089e-16, -1.39407e-22, 1, -6.27833e-07, -1, 1.39407e-22, 0.0028123, -0.347363, -1.00101)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rccpd"]
+_data = {
+"Death": ExtResource("2_wre70"),
+"Idle": ExtResource("3_a30c3"),
+"Jumping": ExtResource("4_nxlb1"),
+"Walking": ExtResource("5_txd8n")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qdmkb"]
+animation = &"Death"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ogdd"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2irro"]
+animation = &"Jumping"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hkj0t"]
+animation = &"Walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_56gll"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4r8ny"]
+advance_mode = 2
+advance_condition = &"animWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_yjjqe"]
+advance_mode = 2
+advance_condition = &"animJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_raaxu"]
+advance_mode = 2
+advance_condition = &"animJump"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_plnto"]
+advance_mode = 2
+advance_condition = &"animIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3xc6j"]
+advance_mode = 2
+advance_condition = &"animWalk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3sitb"]
+advance_mode = 2
+advance_condition = &"animDeath"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6x5qu"]
+advance_mode = 2
+advance_condition = &"animDeath"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6bld0"]
+advance_mode = 2
+advance_condition = &"animDeath"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uhmm6"]
+advance_mode = 2
+advance_condition = &"animIdle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8bopw"]
+advance_mode = 2
+advance_condition = &"animIdle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_yoau1"]
+states/Death/node = SubResource("AnimationNodeAnimation_qdmkb")
+states/Death/position = Vector2(802, 73)
+states/Idle/node = SubResource("AnimationNodeAnimation_6ogdd")
+states/Idle/position = Vector2(335, 106)
+states/Jumping/node = SubResource("AnimationNodeAnimation_2irro")
+states/Jumping/position = Vector2(573, 12)
+states/Walking/node = SubResource("AnimationNodeAnimation_hkj0t")
+states/Walking/position = Vector2(573, 191)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_56gll"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_4r8ny"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_yjjqe"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_raaxu"), "Jumping", "Idle", SubResource("AnimationNodeStateMachineTransition_plnto"), "Jumping", "Walking", SubResource("AnimationNodeStateMachineTransition_3xc6j"), "Jumping", "Death", SubResource("AnimationNodeStateMachineTransition_3sitb"), "Walking", "Death", SubResource("AnimationNodeStateMachineTransition_6x5qu"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_6bld0"), "Death", "Idle", SubResource("AnimationNodeStateMachineTransition_uhmm6"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_8bopw")]
+graph_offset = Vector2(22, -25)
+
+[sub_resource type="Curve" id="Curve_th3ij"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.260143, -1), 0.0, 0.0, 0, 0, Vector2(0.446301, -1), 0.0, 0.0, 0, 0, Vector2(0.563246, 1), 0.0, 0.0, 0, 0, Vector2(0.782816, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 6
+
+[sub_resource type="Curve" id="Curve_hmeic"]
+min_value = -1.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.105012, 0.139619), 0.0, 0.0, 0, 0, Vector2(0.176611, -0.119674), 0.0, 0.0, 0, 0, Vector2(0.257757, 0.068903), 0.0, 0.0, 0, 0, Vector2(0.310263, -0.119674), 0.0, 0.0, 0, 0, Vector2(0.391408, -0.00181317), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_glqgn"]
 size = Vector2(64, 64)
+
+[sub_resource type="Curve" id="Curve_w8wmv"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1e-05, 0), 0.0, 0.0, 0, 0, Vector2(0.339066, 21.4152), 0.0, 0.0, 0, 0, Vector2(1, 25.6795), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Curve" id="Curve_t7bsw"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.427518, 0.975633), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_ryitp"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_qkrph"]
+viewport_path = NodePath("Node3d_doctorBubble/SubViewport")
 
 [sub_resource type="Curve" id="Curve_a1pv5"]
 min_value = -1.0
@@ -49,24 +220,125 @@ point_count = 11
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
 scoreTreshold = 100.0
-rewardSprite = ExtResource("15_412vw")
-rewardText = "100 points!!!"
+rewardSprite = ExtResource("16_sh8lr")
+rewardText = "100 points!!! Strong as a Nokia"
 
 [sub_resource type="Resource" id="Resource_xgt63"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
 scoreTreshold = 200.0
-rewardSprite = ExtResource("15_412vw")
+rewardSprite = ExtResource("17_xqx1v")
 rewardText = "200!! Hell yeah"
 
 [sub_resource type="Resource" id="Resource_6g558"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
-scoreTreshold = 250.0
+scoreTreshold = 300.0
 rewardSprite = ExtResource("17_mbsux")
 rewardText = "WAFFLEICIOUS"
 
+[sub_resource type="Resource" id="Resource_6lt5r"]
+script = ExtResource("15_ivmo0")
+hasBeenActivated = false
+scoreTreshold = 400.0
+rewardSprite = ExtResource("19_bgyuq")
+rewardText = "Pro gamer alert!"
+
 [node name="Scene" type="Node2D"]
+
+[node name="Node3d_doctorBubble" type="Node3D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="Node3d_doctorBubble"]
+transparent_bg = true
+
+[node name="DoctorBubble" type="Node3D" parent="Node3d_doctorBubble/SubViewport"]
+
+[node name="DoctorBubble_animsA" type="Node3D" parent="Node3d_doctorBubble/SubViewport/DoctorBubble"]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, -0.533917)
+
+[node name="DoctorBubble_Arm" type="Node3D" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00281293, 0.0517977, -0.0130979)
+
+[node name="Skeleton3D" type="Skeleton3D" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA/DoctorBubble_Arm"]
+bones/0/name = "Root"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.720921, 0.105501)
+bones/0/enabled = true
+bones/0/position = Vector3(0, -0.73794, 0.105501)
+bones/0/rotation = Quaternion(0, 0, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "Head"
+bones/1/parent = 0
+bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.720921, 0)
+bones/1/enabled = true
+bones/1/position = Vector3(0, 0.720921, 0)
+bones/1/rotation = Quaternion(-0.0393562, -6.60162e-19, 6.44e-18, 0.999225)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/name = "shoulder_R"
+bones/2/parent = 0
+bones/2/rest = Transform3D(1, 1.34111e-13, -1.10467e-06, -1.34111e-13, -1, -2.42808e-07, -1.10467e-06, 2.42808e-07, -1, 0, 0.558274, -0.413211)
+bones/2/enabled = true
+bones/2/position = Vector3(-4.53957e-14, 0.558274, -0.413211)
+bones/2/rotation = Quaternion(0.962274, 1.5028e-07, -5.31498e-07, -0.272081)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "Hand_R"
+bones/3/parent = 2
+bones/3/rest = Transform3D(1, 9.0453e-16, -5.00687e-07, -6.16899e-14, 1, -1.21404e-07, 5.00687e-07, 1.21404e-07, 1, -2.40916e-09, 0.393429, -0.00219786)
+bones/3/enabled = true
+bones/3/position = Vector3(-2.42793e-09, 0.393429, -0.00219788)
+bones/3/rotation = Quaternion(4.58008e-08, -2.50343e-07, -1.9379e-14, 1)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/name = "Shoulder_L"
+bones/4/parent = 0
+bones/4/rest = Transform3D(1, 1.07828e-22, -1.58151e-06, 1.07828e-22, -1, -8.52656e-29, -1.58151e-06, -8.52656e-29, -1, 0, 0.558274, 0.43519)
+bones/4/enabled = true
+bones/4/position = Vector3(3.38702e-16, 0.558274, 0.43519)
+bones/4/rotation = Quaternion(0.956248, -2.31342e-07, -7.56156e-07, 0.292559)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/name = "Hand_L"
+bones/5/parent = 4
+bones/5/rest = Transform3D(1, -3.84425e-13, -2.38498e-08, 3.90216e-13, 1, 2.42808e-07, 2.38498e-08, -2.42808e-07, 1, -3.4031e-09, 0.393429, -0.00219798)
+bones/5/enabled = true
+bones/5/position = Vector3(-3.47611e-09, 0.393429, -0.00219798)
+bones/5/rotation = Quaternion(-1.21404e-07, -1.19249e-08, 1.9366e-13, 1)
+bones/5/scale = Vector3(1, 1, 1)
+bones/6/name = "Foot_R"
+bones/6/parent = -1
+bones/6/rest = Transform3D(1, 0, -3.89414e-07, -3.89414e-07, 0, -1, 0, 1, 0, 0, -1.05281, -0.125282)
+bones/6/enabled = true
+bones/6/position = Vector3(-9.72877e-19, -1.05281, -0.125282)
+bones/6/rotation = Quaternion(0.707107, -1.37679e-07, -1.37679e-07, 0.707107)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "Foot_L"
+bones/7/parent = -1
+bones/7/rest = Transform3D(1, 0, -6.27833e-07, -6.27833e-07, 0, -1, 0, 1, 0, 0, -1.05281, 0.360461)
+bones/7/enabled = true
+bones/7/position = Vector3(-2.16686e-16, -1.05281, 0.360461)
+bones/7/rotation = Quaternion(0.707107, -2.21973e-07, -2.21973e-07, 0.707107)
+bones/7/scale = Vector3(1, 1, 1)
+
+[node name="Plane_002" type="MeshInstance3D" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA/DoctorBubble_Arm/Skeleton3D"]
+material_override = SubResource("StandardMaterial3D_ck2pn")
+mesh = SubResource("ArrayMesh_uno7l")
+skin = SubResource("Skin_sdfiv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA"]
+libraries = {
+"": SubResource("AnimationLibrary_rccpd")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA"]
+tree_root = SubResource("AnimationNodeStateMachine_yoau1")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/animDeath = false
+parameters/conditions/animIdle = false
+parameters/conditions/animJump = false
+parameters/conditions/animWalk = false
+
+[node name="Camera3D" type="Camera3D" parent="Node3d_doctorBubble/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.472706)
+projection = 1
+size = 1.5
 
 [node name="Managers" type="Node2D" parent="."]
 
@@ -98,8 +370,8 @@ position = Vector2(0, 716)
 
 [node name="Specials" type="Node2D" parent="."]
 
-[node name="Player" type="RigidBody2D" parent="Specials" groups=["player"]]
-position = Vector2(198, 334)
+[node name="Player" type="RigidBody2D" parent="Specials" node_paths=PackedStringArray("playerVisualHandle", "playerGroundParticlesHandle", "animTreeHandle") groups=["player"]]
+position = Vector2(200, 640)
 collision_mask = 7
 mass = 0.25
 can_sleep = false
@@ -108,17 +380,63 @@ continuous_cd = 1
 contact_monitor = true
 max_contacts_reported = 2
 script = ExtResource("2_4ndox")
+playerVisualHandle = NodePath("PlayerVisual")
+playerGroundParticlesHandle = NodePath("playerGroundParticles")
+walkingAnimCurve = SubResource("Curve_th3ij")
+jumpingAnimCurve = SubResource("Curve_hmeic")
+animTreeHandle = NodePath("../../Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA/AnimationTree")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Specials/Player"]
 position = Vector2(32, 32)
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_glqgn")
 
-[node name="ColorRect" type="ColorRect" parent="Specials/Player"]
+[node name="playerGroundParticles" type="CPUParticles2D" parent="Specials/Player"]
+position = Vector2(32, 64)
+emitting = false
+amount = 16
+lifetime = 0.4
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("4_rd5yr")
+direction = Vector2(0, 1)
+spread = 120.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 140.0
+initial_velocity_max = 250.0
+damping_min = 25.0
+damping_max = 25.0
+damping_curve = SubResource("Curve_w8wmv")
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+scale_amount_curve = SubResource("Curve_t7bsw")
+color_ramp = SubResource("Gradient_ryitp")
+
+[node name="PlayerVisual" type="Control" parent="Specials/Player"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 64.0
+offset_bottom = 64.0
+pivot_offset = Vector2(32, 32)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Specials/Player/PlayerVisual"]
+modulate = Color(0.939214, 0.592199, 1, 1)
+position = Vector2(32, 24)
+scale = Vector2(1.42009, 1.42009)
+texture = ExtResource("4_rd5yr")
+
+[node name="ColorRect" type="ColorRect" parent="Specials/Player/PlayerVisual"]
+visible = false
 custom_minimum_size = Vector2(64, 64)
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 64.0
 color = Color(0.974558, 0.300658, 0.472542, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="Specials/Player/PlayerVisual"]
+position = Vector2(40, 16)
+scale = Vector2(0.3, 0.3)
+texture = SubResource("ViewportTexture_qkrph")
 
 [node name="BubbleCreator" type="Node2D" parent="Specials" node_paths=PackedStringArray("mouseIndicatorParticles", "bubbleCreatorHandle")]
 position = Vector2(198, 334)
@@ -152,13 +470,13 @@ width = 3.0
 
 [node name="Bubble_small" parent="." instance=ExtResource("6_eoekv")]
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle", "scoreboardPopupHandle", "scoreboardPopupLabelHandle", "scoreboardPopupImageHandle", "backgroundImage")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle", "scoreboardPopupHandle", "scoreboardPopupLabelHandle", "scoreboardPopupImageHandle", "backgroundImage", "fadeToWhiteHandle", "fadeToBlackHandle")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 offset_right = 480.0
-offset_bottom = 64.0
+offset_bottom = 800.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("9_8ysmm")
@@ -174,10 +492,17 @@ scoreboardPopupCurve = SubResource("Curve_8o80u")
 scoreboardPopupRotateCurve = SubResource("Curve_rcxe1")
 backgroundImage = NodePath("CanvasLayer2/TextureRect_Background")
 backgroundRotationCurve = SubResource("Curve_u8fcg")
-allAchiData = Array[ExtResource("15_ivmo0")]([SubResource("Resource_u78v5"), SubResource("Resource_xgt63"), SubResource("Resource_6g558")])
+allAchiData = Array[ExtResource("15_ivmo0")]([SubResource("Resource_u78v5"), SubResource("Resource_xgt63"), SubResource("Resource_6g558"), SubResource("Resource_6lt5r")])
+fadeToWhiteHandle = NodePath("CanvasLayer/ScreenFlash")
+fadeToBlackHandle = NodePath("CanvasLayer/FadeToBlack")
 
 [node name="CanvasLayer_IngameInterace" type="CanvasLayer" parent="UI"]
 layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="UI/CanvasLayer_IngameInterace"]
+modulate = Color(0.222945, 0.348182, 1, 1)
+position = Vector2(416, 64)
+texture = ExtResource("4_rd5yr")
 
 [node name="ScoreBoard" type="Label" parent="UI/CanvasLayer_IngameInterace"]
 custom_minimum_size = Vector2(64, 64)
@@ -241,6 +566,12 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(240, 400)
+
+[node name="Sprite2D2" type="Sprite2D" parent="UI/CanvasLayer/Scoreboard"]
+modulate = Color(0.939214, 0.592199, 1, 1)
+position = Vector2(240, 408)
+scale = Vector2(2.57208, 2.57208)
+texture = ExtResource("4_rd5yr")
 
 [node name="Sprite2D" type="Sprite2D" parent="UI/CanvasLayer/Scoreboard"]
 position = Vector2(240, 408)
@@ -406,8 +737,38 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Got it"
 
+[node name="ScreenFlash" type="ColorRect" parent="UI/CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0.592157)
+
+[node name="FadeToBlack" type="ColorRect" parent="UI/CanvasLayer"]
+modulate = Color(1, 1, 1, 0)
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="CanvasLayer2" type="CanvasLayer" parent="UI"]
 layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.517647)
 
 [node name="TextureRect_Background" type="TextureRect" parent="UI/CanvasLayer2"]
 z_index = -1
@@ -417,6 +778,17 @@ offset_bottom = 1024.0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(512, 512)
 texture = ExtResource("18_duygc")
+
+[node name="TextureRect_Background2" type="TextureRect" parent="UI/CanvasLayer2"]
+modulate = Color(1, 1, 1, 0.266667)
+z_index = -1
+offset_left = -272.0
+offset_top = -64.0
+offset_right = 752.0
+offset_bottom = 960.0
+scale = Vector2(0.730322, 0.730322)
+pivot_offset = Vector2(512, 512)
+texture = ExtResource("19_vmmuh")
 
 [connection signal="body_entered" from="Specials/Player" to="Specials/Player" method="_on_body_entered"]
 [connection signal="pressed" from="UI/CanvasLayer/StartMenu/Button_StartGame" to="UI" method="OnMenuButtonPressed" binds= ["start"]]

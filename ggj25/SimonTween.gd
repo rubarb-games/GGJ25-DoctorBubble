@@ -20,6 +20,7 @@ var returnOnEndVal:bool = false
 var loops:int = 0
 
 var breakLoop:bool = false
+var breakLoopNow:bool = false
 
 var deltaValue:float
 var totalTweenMovement:Variant
@@ -34,6 +35,9 @@ signal tweenDoneFullChain
 signal tweenResumed
 signal tweenPaused
 signal fullChainLoopDone
+
+func isPlaying():
+	return ts == tweenState.PLAYING
 
 func createTween(objArg:Node, propPath:String, endResultArg, timeArg:float = 1, intCurveArg:Curve = null, typ = SimonTween.NORMAL):
 	sceneTreeHandle = Engine.get_main_loop() as SceneTree
@@ -143,6 +147,9 @@ func doTweenFunc(delta):
 	
 func stop():
 	breakLoop = true
+
+func stopNow():
+	breakLoopNow = true
 
 func setLoops(l = 1):
 	loops = l

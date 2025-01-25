@@ -74,11 +74,11 @@ func evaluateCollision(col:KinematicCollision2D):
 		return
 	
 	if (col.get_collider().is_in_group("player")): #If collision is with player
-		SignalManager.hitByBullet.emit(col.get_collider())
+		SignalManager.hitByBullet.emit(col.get_collider(),self)
 		startDie()
 		
 	if (col.get_collider().is_in_group("bubble")):
-		SignalManager.hitByBullet.emit(col.get_collider())
+		SignalManager.hitByBullet.emit(col.get_collider(),self)
 		startDie()
 	
 

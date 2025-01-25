@@ -16,6 +16,9 @@ var lifeTime:float = 0
 var lifeTimeTotal:float = Globals.bubbleLifeTotal
 var bubbleSink:float = 0.5
 
+@export var bubbleVisualHandle:Control
+@export var bubbleParticlesHandle:CPUParticles2D
+
 @export var bubbleWobbleCurve:Curve
 @export var bubbleGrowCurve:Curve
 @export var bubbleExplodeCurve:Curve
@@ -33,21 +36,31 @@ func _ready():
 	startBubble()
 
 func wobbleBubble(fromZero:bool = false):
+	if (!is_instance_valid(bubbleVisualHandle)):
+		return
 	var s = SimonTween.new()
-	await s.createTween(self,"scale",Vector2(1,1),1,bubbleWobbleCurve).tweenDone
-	self.scale = Vector2(1,1)
+	await s.createTween(bubbleVisualHandle,"scale",Vector2(1,1),1,bubbleWobbleCurve).tweenDone
+	bubbleVisualHandle.scale = Vector2(1,1)
 
 func startBubble(fromZero:bool = false):
+	if (!is_instance_valid(bubbleVisualHandle)):
+		return
+		
+	bubbleParticlesHandle.restart()
 	var s = SimonTween.new()
-	self.scale = Vector2(0,0)
-	await s.createTween(self,"scale",Vector2(1,1),0.5,bubbleGrowCurve).tweenDone
-	self.scale = Vector2(1,1)
+	bubbleVisualHandle.scale = Vector2(0,0)
+	await s.createTween(bubbleVisualHandle,"scale",Vector2(1,1),0.5,bubbleGrowCurve).tweenDone
+	bubbleVisualHandle.scale = Vector2(1,1)
+	s.createTween(bubbleVisualHandle,"rotation",deg_to_rad(360),200).setLoops(-1)
 
 func explodeBubble(fromZero:bool = false):
+	if (!is_instance_valid(bubbleVisualHandle)):
+		return
 	var s = SimonTween.new()
-	self.scale = Vector2(1,1)
-	await s.createTween(self,"scale",-Vector2(1,1),0.25,bubbleExplodeCurve).tweenDone
-	self.scale = Vector2(0,0)
+	bubbleVisualHandle.scale = Vector2(1,1)
+	await s.createTween(bubbleVisualHandle,"scale",-Vector2(1,1),0.25,bubbleExplodeCurve).tweenDone
+	bubbleParticlesHandle.restart()
+	bubbleVisualHandle.scale = Vector2(0,0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -87,6 +100,6 @@ func OnPlayerTouch():
 	bubbleWobbleCurve
 	playerIsStandingOn = true
 
-func OnHitByBullet(body):
+func OnHitByBullet(body,bullet:BulletController):
 	if (body == self):
 		bubbleDie()

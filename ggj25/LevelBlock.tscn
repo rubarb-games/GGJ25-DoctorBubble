@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4dp1nga2q414"]
+[gd_scene load_steps=3 format=3 uid="uid://b4dp1nga2q414"]
+
+[ext_resource type="Texture2D" uid="uid://s6pfgt5re6yl" path="res://assets/art/blockC_AT.tres" id="1_4thlj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4mjme"]
 size = Vector2(64, 64)
@@ -12,7 +14,17 @@ position = Vector2(32, 32)
 shape = SubResource("RectangleShape2D_4mjme")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(64, 64)
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.0469964, 0.305238, 0.707213, 1)
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+offset_left = -1.52588e-05
+offset_top = 64.0
+offset_right = 198.0
+offset_bottom = 269.0
+rotation = -1.57079
+scale = Vector2(0.319193, 0.319193)
+texture = ExtResource("1_4thlj")

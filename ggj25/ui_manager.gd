@@ -24,6 +24,9 @@ var bubbleResourceCounter:Array[ColorRect]
 var scoreboardUpdateCounter:float = 0.0
 @export var allAchiData:Array[AchiData]
 
+@export var fadeToWhiteHandle:ColorRect
+@export var fadeToBlackHandle:ColorRect
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalManager.bubbleResourceSpent.connect(OnResourceSpent)
@@ -51,10 +54,12 @@ func _ready():
 func _process(delta):
 	scoreboardUpdateCounter += delta
 	
-	if (scoreboardUpdateCounter > 1.0):
+	if (scoreboardUpdateCounter > 1.0 and Globals.playerHandle.playerActive):
 		scoreboardUpdateCounter = 0
 		scoreboardHandle.text = str(round(Globals.totalProgress))
 		checkAchievement()
+		var s = SimonTween.new()
+		s.createTween(scoreboardHandle,"scale",Vector2(1,1),0.25,null,SimonTween.PINGPONG)
 		SignalManager.scoreboardUpdated.emit()
 		
 func checkAchievement():
@@ -63,6 +68,7 @@ func checkAchievement():
 		if (!allAchiData[d].hasBeenActivated and Globals.totalProgress > allAchiData[d].scoreTreshold):
 			allAchiData[d].hasBeenActivated = true
 			ScoreboardPopup(allAchiData[d].rewardText,allAchiData[d].rewardSprite)
+			fadeToWhite(1)
 
 func setupBackground():
 	var s = SimonTween.new()
@@ -118,3 +124,39 @@ func ScoreboardPopup(text:String,sp:Texture):
 	createTween(scoreboardPopupImageHandle,"rotation",deg_to_rad(360),1,scoreboardPopupRotateCurve).tweenDone
 	scoreboardPopupHandle.modulate.a = 0
 	scoreboardPopupHandle.scale = Vector2(1,1)
+
+func fadeToBlack(mode:int = 0):
+	match mode:
+		1:
+			var s = SimonTween.new()
+			fadeToBlackHandle.modulate.a = 0
+			await s.createTween(fadeToBlackHandle,"modulate:a",1,0.25,null,SimonTween.PINGPONG).tweenDone
+			fadeToBlackHandle.modulate.a = 0
+		2:
+			var s = SimonTween.new()
+			fadeToBlackHandle.modulate.a = 0
+			await s.createTween(fadeToBlackHandle,"modulate:a",1,1.25,null,SimonTween.NORMAL).tweenDone
+			fadeToBlackHandle.modulate.a = 1
+		3:
+			var s = SimonTween.new()
+			fadeToBlackHandle.modulate.a = 1
+			await s.createTween(fadeToBlackHandle,"modulate:a",-1,1.25,null,SimonTween.NORMAL).tweenDone
+			fadeToBlackHandle.modulate.a = 0
+	
+func fadeToWhite(mode:int = 0):
+	match mode:
+		1:
+			var s = SimonTween.new()
+			fadeToWhiteHandle.modulate.a = 0
+			await s.createTween(fadeToWhiteHandle,"modulate:a",1,0.25,null,SimonTween.PINGPONG).tweenDone
+			fadeToWhiteHandle.modulate.a = 0
+		2:
+			var s = SimonTween.new()
+			fadeToWhiteHandle.modulate.a = 0
+			await s.createTween(fadeToWhiteHandle,"modulate:a",1,1.25,null,SimonTween.NORMAL).tweenDone
+			fadeToWhiteHandle.modulate.a = 1
+		3:
+			var s = SimonTween.new()
+			fadeToWhiteHandle.modulate.a = 1
+			await s.createTween(fadeToWhiteHandle,"modulate:a",-1,1.25,null,SimonTween.NORMAL).tweenDone
+			fadeToWhiteHandle.modulate.a = 0
