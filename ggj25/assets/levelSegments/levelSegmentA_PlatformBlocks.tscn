@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://ccefuk7y8bgh"]
+
+[ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="1_lujc1"]
+
+[node name="LevelBlockGroupA" type="Node2D"]
+position = Vector2(479, 411)
+
+[node name="LevelBlock8" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(-133, 178)
+
+[node name="LevelBlock11" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(-65, 178)
+
+[node name="LevelBlock12" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(-65, 2)
+
+[node name="LevelBlock9" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(-197, 178)
+
+[node name="LevelBlock10" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(-133, 2)

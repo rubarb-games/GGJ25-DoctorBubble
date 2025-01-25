@@ -1,10 +1,179 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5bw5krxyi4lj"]
+[gd_scene load_steps=15 format=3 uid="uid://c5bw5krxyi4lj"]
 
 [ext_resource type="Script" path="res://game_manager.gd" id="1_15tj7"]
+[ext_resource type="Script" path="res://player_controller.gd" id="2_4ndox"]
+[ext_resource type="PackedScene" uid="uid://ccefuk7y8bgh" path="res://assets/levelSegments/levelSegmentA_PlatformBlocks.tscn" id="2_t3d2w"]
+[ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="2_x8nan"]
+[ext_resource type="Script" path="res://bubble_creator_controller.gd" id="3_7nihn"]
+[ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="4_rd5yr"]
+[ext_resource type="PackedScene" uid="uid://0ff4vj07cnnc" path="res://bubble_medium.tscn" id="6_1cht3"]
+[ext_resource type="PackedScene" uid="uid://6s5l712qmp4v" path="res://bubble_small.tscn" id="6_eoekv"]
+[ext_resource type="PackedScene" uid="uid://rrsf4s44cf2x" path="res://bubble_large.tscn" id="7_h67ck"]
+[ext_resource type="Script" path="res://ui_manager.gd" id="9_8ysmm"]
+[ext_resource type="Script" path="res://camera_controller.gd" id="9_52gyi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mjme"]
+size = Vector2(64, 64)
+
+[sub_resource type="Curve" id="Curve_a1pv5"]
+min_value = -1.0
+max_value = 2.0
+_data = [Vector2(0, 0.0329671), 0.0, 0.0, 0, 0, Vector2(0.0684211, 1.24176), 0.0, 0.0, 0, 0, Vector2(0.236842, 0.483517), 2.21073, 2.21073, 0, 0, Vector2(0.405263, 1.07692), 0.0, 0.0, 0, 0, Vector2(0.621053, 1.01099), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Curve" id="Curve_k31nm"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.117978, 1), 0.0, 0.0, 0, 0, Vector2(0.331461, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="Scene" type="Node2D"]
 
 [node name="Managers" type="Node2D" parent="."]
 
-[node name="GameManager" type="Node2D" parent="Managers"]
+[node name="GameManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("levelHandle")]
 script = ExtResource("1_15tj7")
+levelHandle = NodePath("../../Level")
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="LevelGeometry" type="Node2D" parent="Level"]
+
+[node name="LevelBlockGroupA" parent="Level/LevelGeometry" instance=ExtResource("2_t3d2w")]
+
+[node name="LevelBlock" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+
+[node name="LevelBlock2" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(64, 712)
+
+[node name="LevelBlock3" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(128, 712)
+
+[node name="LevelBlock4" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(192, 712)
+
+[node name="LevelBlock5" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(256, 712)
+
+[node name="LevelBlock6" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(320, 712)
+
+[node name="LevelBlock7" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(384, 712)
+
+[node name="LevelBlock13" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(85, 191)
+
+[node name="LevelBlock14" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
+position = Vector2(17, 191)
+
+[node name="Specials" type="Node2D" parent="."]
+
+[node name="Player" type="RigidBody2D" parent="Specials"]
+position = Vector2(198, 334)
+collision_mask = 7
+mass = 0.25
+can_sleep = false
+lock_rotation = true
+continuous_cd = 1
+contact_monitor = true
+max_contacts_reported = 2
+script = ExtResource("2_4ndox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Specials/Player"]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_4mjme")
+
+[node name="ColorRect" type="ColorRect" parent="Specials/Player"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.974558, 0.300658, 0.472542, 1)
+
+[node name="BubbleCreator" type="Node2D" parent="Specials" node_paths=PackedStringArray("mouseIndicatorParticles", "bubbleCreatorHandle")]
+position = Vector2(198, 334)
+script = ExtResource("3_7nihn")
+bubbleSmallHandle = ExtResource("6_eoekv")
+bubbleMediumHandle = ExtResource("6_1cht3")
+bubbleLargeHandle = ExtResource("7_h67ck")
+mouseIndicatorParticles = NodePath("../MouseIndicator")
+bubbleCreatorHandle = NodePath("../Line2D")
+perfectLineJiggleCurve = SubResource("Curve_a1pv5")
+
+[node name="MouseIndicator" type="CPUParticles2D" parent="Specials"]
+position = Vector2(-67, 420)
+amount = 90
+fixed_fps = 60
+texture = ExtResource("4_rd5yr")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
+scale_amount_min = 0.1
+scale_amount_max = 0.1
+scale_amount_curve = SubResource("Curve_k31nm")
+
+[node name="Camera2D" type="Camera2D" parent="Specials"]
+position = Vector2(240, 400)
+script = ExtResource("9_52gyi")
+
+[node name="Line2D" type="Line2D" parent="Specials"]
+width = 3.0
+
+[node name="Bubble_small" parent="." instance=ExtResource("6_eoekv")]
+
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 480.0
+offset_bottom = 64.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+script = ExtResource("9_8ysmm")
+resourceCounterParentHandle = NodePath("CanvasLayer/HBoxContainer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+layer = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 47.0
+offset_right = 88.0
+offset_bottom = 79.0
+grow_horizontal = 2
+alignment = 1
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect2" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect3" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect4" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ColorRect5" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[connection signal="body_entered" from="Specials/Player" to="Specials/Player" method="_on_body_entered"]
