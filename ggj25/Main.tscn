@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://c5bw5krxyi4lj"]
+[gd_scene load_steps=16 format=3 uid="uid://c5bw5krxyi4lj"]
 
 [ext_resource type="Script" path="res://game_manager.gd" id="1_15tj7"]
 [ext_resource type="Script" path="res://player_controller.gd" id="2_4ndox"]
 [ext_resource type="PackedScene" uid="uid://ccefuk7y8bgh" path="res://assets/levelSegments/levelSegmentA_PlatformBlocks.tscn" id="2_t3d2w"]
 [ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="2_x8nan"]
 [ext_resource type="Script" path="res://bubble_creator_controller.gd" id="3_7nihn"]
+[ext_resource type="PackedScene" uid="uid://bnrx5leuw1nrx" path="res://assets/levelSegmentB_startPlatform.tscn" id="4_5sriq"]
 [ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="4_rd5yr"]
 [ext_resource type="PackedScene" uid="uid://0ff4vj07cnnc" path="res://bubble_medium.tscn" id="6_1cht3"]
 [ext_resource type="PackedScene" uid="uid://6s5l712qmp4v" path="res://bubble_small.tscn" id="6_eoekv"]
@@ -32,38 +33,23 @@ point_count = 4
 [node name="GameManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("levelHandle")]
 script = ExtResource("1_15tj7")
 levelHandle = NodePath("../../Level")
+startingPlatform = ExtResource("4_5sriq")
 
 [node name="Level" type="Node2D" parent="."]
 
 [node name="LevelGeometry" type="Node2D" parent="Level"]
 
 [node name="LevelBlockGroupA" parent="Level/LevelGeometry" instance=ExtResource("2_t3d2w")]
-
-[node name="LevelBlock" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-
-[node name="LevelBlock2" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(64, 712)
-
-[node name="LevelBlock3" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(128, 712)
-
-[node name="LevelBlock4" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(192, 712)
-
-[node name="LevelBlock5" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(256, 712)
-
-[node name="LevelBlock6" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(320, 712)
-
-[node name="LevelBlock7" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
-position = Vector2(384, 712)
+position = Vector2(283, 383)
 
 [node name="LevelBlock13" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
 position = Vector2(85, 191)
 
 [node name="LevelBlock14" parent="Level/LevelGeometry" instance=ExtResource("2_x8nan")]
 position = Vector2(17, 191)
+
+[node name="LevelBlockSegmentB_startBar" parent="Level/LevelGeometry" instance=ExtResource("4_5sriq")]
+position = Vector2(0, 716)
 
 [node name="Specials" type="Node2D" parent="."]
 
@@ -120,7 +106,7 @@ width = 3.0
 
 [node name="Bubble_small" parent="." instance=ExtResource("6_eoekv")]
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 10
@@ -130,12 +116,27 @@ offset_bottom = 64.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 script = ExtResource("9_8ysmm")
-resourceCounterParentHandle = NodePath("CanvasLayer/HBoxContainer")
+resourceCounterParentHandle = NodePath("CanvasLayer_IngameInterace/HBoxContainer")
+startMenuHandle = NodePath("CanvasLayer/StartMenu")
+tutorialMenuHandle = NodePath("CanvasLayer/TutorialMenu")
+endMenuHandle = NodePath("CanvasLayer/EndMenu")
+scoreboardHandle = NodePath("CanvasLayer_IngameInterace/ScoreBoard")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+[node name="CanvasLayer_IngameInterace" type="CanvasLayer" parent="UI"]
 layer = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer"]
+[node name="ScoreBoard" type="Label" parent="UI/CanvasLayer_IngameInterace"]
+custom_minimum_size = Vector2(64, 64)
+offset_left = 385.0
+offset_top = 31.0
+offset_right = 449.0
+offset_bottom = 95.0
+pivot_offset = Vector2(32, 32)
+text = "666"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer_IngameInterace"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -146,34 +147,180 @@ offset_bottom = 79.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect2" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+[node name="ColorRect2" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect3" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+[node name="ColorRect3" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect4" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+[node name="ColorRect4" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ColorRect5" type="ColorRect" parent="UI/CanvasLayer/HBoxContainer"]
+[node name="ColorRect5" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+
+[node name="CanvasLayer" type="CanvasLayer" parent="UI"]
+
+[node name="StartMenu" type="Control" parent="UI/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/StartMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/CanvasLayer/StartMenu"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 83.0
+offset_top = 278.0
+offset_right = 383.0
+offset_bottom = 578.0
+bbcode_enabled = true
+text = "[center]The bubbler
+
+draw circles with mouse, stay in the view. Don't fall behind"
+
+[node name="Button_StartGame" type="Button" parent="UI/CanvasLayer/StartMenu"]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -141.0
+offset_right = 47.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Start game"
+
+[node name="EndMenu" type="Control" parent="UI/CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/EndMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/CanvasLayer/EndMenu"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 83.0
+offset_top = 278.0
+offset_right = 383.0
+offset_bottom = 578.0
+bbcode_enabled = true
+text = "[center]You died a most embarrasing death
+
+play again?"
+
+[node name="Button_EndMenu" type="Button" parent="UI/CanvasLayer/EndMenu"]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -141.0
+offset_right = 47.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Sure, why not?"
+
+[node name="TutorialMenu" type="Control" parent="UI/CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer/TutorialMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/CanvasLayer/TutorialMenu"]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 0
+offset_left = 83.0
+offset_top = 278.0
+offset_right = 383.0
+offset_bottom = 578.0
+bbcode_enabled = true
+text = "[center]WASD/Arrow keys to move
+
+E/Space to jump
+
+Click and drag to draw circles and make bubbles
+
+stay ahead. Survive"
+
+[node name="Button_TutorialMenu" type="Button" parent="UI/CanvasLayer/TutorialMenu"]
+custom_minimum_size = Vector2(140, 80)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -46.0
+offset_top = -141.0
+offset_right = 47.0
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Got it"
 
 [connection signal="body_entered" from="Specials/Player" to="Specials/Player" method="_on_body_entered"]
+[connection signal="pressed" from="UI/CanvasLayer/StartMenu/Button_StartGame" to="UI" method="OnMenuButtonPressed" binds= ["start"]]
+[connection signal="pressed" from="UI/CanvasLayer/EndMenu/Button_EndMenu" to="UI" method="OnMenuButtonPressed" binds= ["end"]]
+[connection signal="pressed" from="UI/CanvasLayer/TutorialMenu/Button_TutorialMenu" to="UI" method="OnMenuButtonPressed" binds= ["tutorial"]]

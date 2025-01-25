@@ -40,7 +40,7 @@ func _physics_process(delta):
 		
 		
 	#Make bubble sink
-	if (bubbleSize <= 1):
+	if (bubbleSize <= 1 and !playerIsStandingOn):
 		moveDirection += Vector2(0,-bubbleSink)
 	else:
 		moveDirection += Vector2(0,bubbleSink)

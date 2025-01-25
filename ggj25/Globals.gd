@@ -9,8 +9,25 @@ var bubbleResources:int
 
 var bubbleRecoveryTime:float = 2.0
 
-var levelMoveSpeed:float = 50.0
+var levelMoveSpeed:float = 20.0
+var timeBeforeLevelMoveStart:float = 10.0
+var totalProgress = 0.0
+
+var totalAmountScrolled:float = 0.0
 var spawnNewLevelSegmentTreshold = 256.0
+var spawnNewLevelSegmentStartingPoint = 192.0
 
 var playerHandle:PlayerController
 var cameraHandle:CameraController
+
+func GetViewSize():
+	return get_viewport().size
+
+func GetViewHeight():
+	return float(get_viewport().size.y)
+	
+func GetHalfViewHeight():
+	return float(get_viewport().size.y)/2
+
+func GetCamYPos():
+	return cameraHandle.global_position.y

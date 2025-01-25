@@ -1,21 +1,34 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccefuk7y8bgh"]
+[gd_scene load_steps=3 format=3 uid="uid://ccefuk7y8bgh"]
 
+[ext_resource type="Script" path="res://assets/levelSegments/level_segment_controller.gd" id="1_ige6k"]
 [ext_resource type="PackedScene" uid="uid://b4dp1nga2q414" path="res://LevelBlock.tscn" id="1_lujc1"]
 
-[node name="LevelBlockGroupA" type="Node2D"]
-position = Vector2(479, 411)
+[node name="LevelBlockGroupA" type="Node2D" node_paths=PackedStringArray("sizeHandle")]
+script = ExtResource("1_ige6k")
+sizeHandle = NodePath("ColorRect_Size")
+
+[node name="ColorRect_Size" type="ColorRect" parent="."]
+offset_top = -256.0
+offset_right = 40.0
+color = Color(1, 1, 1, 0)
 
 [node name="LevelBlock8" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(-133, 178)
+position = Vector2(64, -64)
 
 [node name="LevelBlock11" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(-65, 178)
-
-[node name="LevelBlock12" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(-65, 2)
+position = Vector2(128, -64)
 
 [node name="LevelBlock9" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(-197, 178)
+position = Vector2(0, -64)
 
 [node name="LevelBlock10" parent="." instance=ExtResource("1_lujc1")]
-position = Vector2(-133, 2)
+position = Vector2(0, -256)
+
+[node name="LevelBlock12" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(64, -256)
+
+[node name="LevelBlock13" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(256, -256)
+
+[node name="LevelBlock14" parent="." instance=ExtResource("1_lujc1")]
+position = Vector2(320, -256)

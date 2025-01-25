@@ -31,6 +31,10 @@ var lastMousePos
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	SignalManager.failedBubble.connect(OnFailedBubble)
+	SignalManager.startingGame.connect(OnGameStarting)
+	SignalManager.restartingGame.connect(OnGameStarting)
+	
 	initialize()
 	
 func initialize():
@@ -105,14 +109,11 @@ func spawnBubbleOfRightSize():
 	
 	match true:
 		_ when currentBubbleRadius <= 64:
-			spawnBubble(0) 
-			Globals.bubbleResources -= 1
+			spawnBubble(1) 
 		_ when currentBubbleRadius <= 128:
-			spawnBubble(1)
-			Globals.bubbleResources -= 2
-		_ when currentBubbleRadius <= 256:
 			spawnBubble(2)
-			Globals.bubbleResources -= 3
+		_ when currentBubbleRadius <= 256:
+			spawnBubble(3)
 			
 	SignalManager.bubbleResourceSpent.emit(0)
 		
@@ -177,12 +178,26 @@ func findBound(line:Line2D,center:Vector2):
 
 func spawnBubble(size:int = 0):
 	var bubble
-	if (size == 0):
+	
+	#Fail if you don't have the resources
+	if (Globals.bubbleResources - size < 0):
+		SignalManager.failedBubble.emit()
+		return
+		
+	Globals.bubbleResources -= size
+	print(Globals.bubbleResources)
+	if (size == 1):	
 		bubble = bubbleSmallHandle.instantiate()
-	elif (size == 1):
-		bubble = bubbleMediumHandle.instantiate()
 	elif (size == 2):
+		bubble = bubbleMediumHandle.instantiate()
+	elif (size == 3):
 		bubble = bubbleLargeHandle.instantiate()
 
 	add_child(bubble)
 	bubble.global_position = lineCenterPoint
+
+func OnFailedBubble():
+	pass
+
+func OnGameStarting():
+	pass
