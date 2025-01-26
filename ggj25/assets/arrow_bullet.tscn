@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://2dnb2ip8287l"]
+[gd_scene load_steps=5 format=3 uid="uid://2dnb2ip8287l"]
 
 [ext_resource type="Script" path="res://bullet_controller.gd" id="1_ofmih"]
+[ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="2_y8pvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xr335"]
 size = Vector2(16, 16)
+
+[sub_resource type="Curve" id="Curve_1mmi1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.186732, 1), 0.0, 0.0, 0, 0, Vector2(0.567568, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="ArrowBullet" type="RigidBody2D" groups=["bullet"]]
 position = Vector2(64, 651)
@@ -22,5 +27,18 @@ offset_top = -11.0
 offset_right = 8.0
 offset_bottom = 5.0
 color = Color(0.737697, 0.170018, 0.274683, 1)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(0, -3)
+rotation = 3.18027
+lifetime = 0.6
+texture = ExtResource("2_y8pvr")
+gravity = Vector2(0, 0)
+initial_velocity_min = 80.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.1
+scale_amount_max = 0.35
+scale_amount_curve = SubResource("Curve_1mmi1")
+color = Color(0.899252, 0, 0.352092, 1)
 
 [connection signal="body_entered" from="." to="." method="OnBulletCollision"]

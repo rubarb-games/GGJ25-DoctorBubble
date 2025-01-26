@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c38gkfc5xa5i8"]
+
+[ext_resource type="Script" path="res://enemy_controller.gd" id="1_4we21"]
+[ext_resource type="PackedScene" uid="uid://2dnb2ip8287l" path="res://assets/arrow_bullet.tscn" id="2_d055a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4mjme"]
+size = Vector2(64, 64)
+
+[node name="EnemyBlock_patrol" type="StaticBody2D" node_paths=PackedStringArray("bulletSpawnPoint", "groundCheckPoint") groups=["enemy"]]
+position = Vector2(-320, 648)
+collision_layer = 256
+script = ExtResource("1_4we21")
+type = 1
+bulletSpawnPoint = NodePath("Marker2D")
+bulletScene = ExtResource("2_d055a")
+groundCheckPoint = NodePath("Marker2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(32, 32)
+shape = SubResource("RectangleShape2D_4mjme")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.875095, 0.378161, 0, 1)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(80, 32)
+rotation = 1.57079

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c4t35wvvugwuh"
+path="res://.godot/imported/Water Pop 2.wav-ce90d79a9bd7cf84cf8733f772096f20.sample"
+
+[deps]
+
+source_file="res://assets/audio/Poppy Sounds/Water Pop 2.wav"
+dest_files=["res://.godot/imported/Water Pop 2.wav-ce90d79a9bd7cf84cf8733f772096f20.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -2,12 +2,12 @@ extends Node
 
 var cellSize:float = 64.0
 var maxBubbleSize:float = 256.0
-var bubbleLifeTotal:float = 10.0
+var bubbleLifeTotal:float = 2.5
 
 var totalBubbleResources:int
 var bubbleResources:int
 
-var bubbleRecoveryTime:float = 2.0
+var bubbleRecoveryTime:float = 3.0
 
 var levelMoveSpeed:float = 20.0
 var timeBeforeLevelMoveStart:float = 10.0

@@ -1,24 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://6s5l712qmp4v"]
+[gd_scene load_steps=15 format=3 uid="uid://6s5l712qmp4v"]
 
 [ext_resource type="Script" path="res://bubble_controller.gd" id="1_23f5f"]
 [ext_resource type="Curve" uid="uid://1oqcp6ahjqn8" path="res://bubble_jiggle_curve.tres" id="2_pe12n"]
+[ext_resource type="PackedScene" uid="uid://0ff4vj07cnnc" path="res://bubble_medium.tscn" id="3_57kqh"]
 [ext_resource type="Texture2D" uid="uid://bifdhg86c6i3l" path="res://assets/art/bubbleA.png" id="3_shpo5"]
+[ext_resource type="Curve" uid="uid://bxakd807bm7qh" path="res://bubble_small_wobble.tres" id="3_vla34"]
 [ext_resource type="Texture2D" uid="uid://1h4ietl7usa8" path="res://SoftRadialGradient.png" id="4_apfcy"]
-
-[sub_resource type="Curve" id="Curve_y43hf"]
-min_value = -1.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.164678, 0.304624), 0.0, 0.0, 0, 0, Vector2(0.264916, -0.296464), 0.0, 0.0, 0, 0, Vector2(0.424821, 0.116047), 0.0, 0.0, 0, 0, Vector2(0.670644, -0.0371714), 0.0, 0.0, 0, 0, Vector2(1, -0.00181317), 0.0, 0.0, 0, 0]
-point_count = 6
-
-[sub_resource type="Curve" id="Curve_dubbs"]
-max_value = 2.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.138425, 1.00997), 0.0, 0.0, 0, 0, Vector2(0.27685, 0.762466), 0.0, 0.0, 0, 0, Vector2(0.415274, 1.04533), 0.0, 0.0, 0, 0, Vector2(0.756563, 0.998187), 0.0, 0.0, 0, 0]
-point_count = 5
-
-[sub_resource type="Curve" id="Curve_045f2"]
-min_value = -1.0
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.174224, 0.422484), 0.0, 0.0, 0, 0, Vector2(0.811456, -0.838622), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 4
+[ext_resource type="Curve" uid="uid://cdxy78jpqf81" path="res://bubble_small_grow.tres" id="4_g6wj7"]
+[ext_resource type="PackedScene" uid="uid://rrsf4s44cf2x" path="res://bubble_large.tscn" id="4_os10w"]
+[ext_resource type="Curve" uid="uid://limr7lx5dh1t" path="res://bubble_small_explode.tres" id="5_riv6d"]
+[ext_resource type="Curve" uid="uid://cixm80i48n8mh" path="res://bubble_manualWobbleCurve.tres" id="8_dsdk1"]
+[ext_resource type="Curve" uid="uid://c0wdpplui2vkb" path="res://exponentialCurve.tres" id="9_f8rrn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f75tu"]
 size = Vector2(64, 64)
@@ -32,7 +24,7 @@ point_count = 4
 offsets = PackedFloat32Array(0, 0.469657, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="Bubble_small" type="StaticBody2D" node_paths=PackedStringArray("bubbleVisualHandle", "bubbleParticlesHandle") groups=["bubble"]]
+[node name="Bubble_small" type="StaticBody2D" node_paths=PackedStringArray("bubbleVisualHandle", "bubbleParticlesHandle", "colorSizeRef") groups=["bubble"]]
 position = Vector2(-32, -32)
 disable_mode = 1
 collision_layer = 4
@@ -40,9 +32,14 @@ script = ExtResource("1_23f5f")
 playerTouchCurve = ExtResource("2_pe12n")
 bubbleVisualHandle = NodePath("Control_VisualHandle")
 bubbleParticlesHandle = NodePath("BubblePopParticles")
-bubbleWobbleCurve = SubResource("Curve_y43hf")
-bubbleGrowCurve = SubResource("Curve_dubbs")
-bubbleExplodeCurve = SubResource("Curve_045f2")
+bubbleWobbleCurve = ExtResource("3_vla34")
+bubbleGrowCurve = ExtResource("4_g6wj7")
+bubbleExplodeCurve = ExtResource("5_riv6d")
+bubbleMediumReference = ExtResource("3_57kqh")
+bubbleLargeReference = ExtResource("4_os10w")
+colorSizeRef = NodePath("Control_VisualHandle/ColorRect")
+manualWobbleCurve = ExtResource("8_dsdk1")
+exponentialCurve = ExtResource("9_f8rrn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_f75tu")
@@ -54,6 +51,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TextureRect" type="TextureRect" parent="Control_VisualHandle"]
+layout_mode = 0
 offset_left = -38.0
 offset_top = -38.0
 offset_right = 90.0
@@ -64,6 +62,7 @@ texture = ExtResource("3_shpo5")
 [node name="ColorRect" type="ColorRect" parent="Control_VisualHandle"]
 visible = false
 custom_minimum_size = Vector2(64, 64)
+layout_mode = 0
 offset_left = -32.0
 offset_top = -32.0
 offset_right = 32.0

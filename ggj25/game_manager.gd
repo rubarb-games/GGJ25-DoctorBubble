@@ -15,6 +15,8 @@ var lastLevelSegment:LevelSegmentController
 @export var levelHandle:Node2D
 
 @export var startingPlatform:PackedScene
+@export var startingLevelArr:Array[PackedScene]
+var allLevelSegments:Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,12 +38,15 @@ func initialize():
 func _process(delta):
 	if (Globals.bubbleResources < Globals.bubbleLifeTotal):
 		bubbleResourceCounter += delta
+	else:
+		bubbleResourceCounter = 0
 		
 	match gS:
 		gameState.IDLE:
 			manageBubbleResources()
 			timeBeforeLevelMoveCounter += delta
 			if (timeBeforeLevelMoveCounter > Globals.timeBeforeLevelMoveStart):
+				SignalManager.textPopup.emit(Vector2(Globals.GetViewSize().x/2,Globals.cameraHandle.global_position.y)+Vector2(0,Globals.GetHalfViewHeight()/2),"Scrolling \n starts \n\n get ready!")
 				gS = gameState.ACTIVE
 		gameState.ACTIVE:
 			manageBubbleResources()
@@ -73,6 +78,7 @@ func loadRandomSegment(offset:float = 0.0):
 	else:
 		node.global_position = Vector2(0,round(Globals.GetCamYPos()-Globals.GetHalfViewHeight()+offset))#Vector2(randf_range(0,float(get_viewport().size.x)),Globals.cameraHandle.global_position.y-(get_viewport().size.y/2)-150)
 	lastLevelSegment = node
+	allLevelSegments.append(node)
 	
 func populateLevelSegmentArr():
 	var fileArr = []
@@ -101,15 +107,26 @@ func OnGoingToGame():
 func OnStartingGame():
 	var plat = startingPlatform.instantiate()
 	levelHandle.add_child(plat)
-	plat.global_position.y = Globals.GetCamYPos()-Globals.GetHalfViewHeight()
-	Globals.cameraHandle.OnOverrideCamera(Vector2(0,Globals.GetCamYPos()-Globals.GetViewHeight()+(Globals.cellSize*2)))
+	plat.global_position.y = Globals.GetCamYPos()-Globals.GetHalfViewHeight()-(Globals.GetViewHeight()*2)
+	Globals.cameraHandle.OnOverrideCamera(Vector2(0,Globals.GetCamYPos()-(Globals.GetViewHeight()*2)-Globals.GetViewHeight()+(Globals.cellSize*2)))
 	Globals.totalProgress = 0
 	timeBeforeLevelMoveCounter = 0
 	gS = gameState.IDLE
 	
-	loadRandomSegment(-Globals.cellSize * 2)
-	loadRandomSegment()
-	loadRandomSegment()
+	spawnStartingPlatform()
+	
+func spawnStartingPlatform():
+	var platformToSpawn = startingLevelArr.pick_random()
+	var plat = platformToSpawn.instantiate()
+	levelHandle.add_child(plat)
+	plat.global_position.y = Globals.GetCamYPos()-Globals.GetHalfViewHeight()-(Globals.GetViewHeight()*2)
+	lastLevelSegment = plat
+	allLevelSegments.append(plat)
+	
+func despawnPlatforms():
+	for a in allLevelSegments:
+		a.queue_free()
+		
 	
 func OnEndGame():
 	SignalManager.goingToEndMenu.emit()

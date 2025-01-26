@@ -11,6 +11,7 @@ var mS:mouseState = mouseState.IDLE
 @export var bubbleCreatorHandle:Line2D
 
 @export var perfectLineJiggleCurve:Curve
+@export var curveWrongHighlight:Curve
 
 var bubbleLineArray:Array
 var bubbleLineSize:int = 128
@@ -107,6 +108,7 @@ func _process(delta):
 		
 func spawnBubbleOfRightSize():
 	if (Globals.bubbleResources <= 0):
+		SignalManager.failedBubble.emit("Low power!")
 		return
 	
 	match true:
@@ -138,6 +140,30 @@ func snapValueToGrid(v:float):
 			v = v - mod + Globals.cellSize
 		return v
 		
+func evaluateCircleQuality(line:Line2D):
+	var circleQuality:Array[int]
+	circleQuality.resize(4)
+	circleQuality.fill(0)
+	
+	for point in line.points:
+		if (circleQuality[0] != 1 and point.x < lineCenterPoint.x and point.y < lineCenterPoint.y): #Any points in -x,-y
+			circleQuality[0] = 1
+		if (circleQuality[1] != 1 and point.x < lineCenterPoint.x and point.y > lineCenterPoint.y): #Any points in -x,+y
+			circleQuality[1] = 1
+		if (circleQuality[2] != 1 and point.x > lineCenterPoint.x and point.y > lineCenterPoint.y): #Any points in +x,+y
+			circleQuality[2] = 1
+		if (circleQuality[3] != 1 and point.x > lineCenterPoint.x and point.y < lineCenterPoint.y): #Any points in +x,-y
+			circleQuality[3] = 1
+			
+	var qualitySum = 0
+	for c in circleQuality:
+		qualitySum += c
+
+	if (qualitySum == 4):
+		return true
+	else:
+		return false
+		
 func findLineCircleGoalPositions(line:Line2D,center:Vector2):
 	lineGoalPositions.resize(line.points.size())
 	lineBounds = findBound(line,center)
@@ -148,7 +174,12 @@ func findLineCircleGoalPositions(line:Line2D,center:Vector2):
 	if (rad2 > radius):
 		radius = rad2
 	radius = snapValueToGrid(radius)
+	if (!evaluateCircleQuality(line)):
+		SignalManager.failedBubble.emit("Poor circle")
+		return false
+	
 	if (radius > Globals.maxBubbleSize):
+		SignalManager.failedBubble.emit("Too big!")
 		return false
 	currentBubbleRadius = radius
 	#lineCenterPoint = snapPointToGrid(lineCenterPoint)	
@@ -193,23 +224,34 @@ func spawnBubble(size:int = 0):
 	
 	#Fail if you don't have the resources
 	if (Globals.bubbleResources - size < 0):
-		SignalManager.failedBubble.emit()
+		SignalManager.failedBubble.emit("Low power")
 		return
 		
 	Globals.bubbleResources -= size
 	print(Globals.bubbleResources)
 	if (size == 1):	
+		SignalManager.textPopup.emit(lineCenterPoint,"Smol!",false,true)
 		bubble = bubbleSmallHandle.instantiate()
 	elif (size == 2):
+		SignalManager.textPopup.emit(lineCenterPoint,"Medium!",false,true)
 		bubble = bubbleMediumHandle.instantiate()
 	elif (size == 3):
+		SignalManager.textPopup.emit(lineCenterPoint,"Big!",false,true)
 		bubble = bubbleLargeHandle.instantiate()
 
 	add_child(bubble)
 	bubble.global_position = lineCenterPoint
 
-func OnFailedBubble():
-	pass
+func OnFailedBubble(txt:String):
+	var s = SimonTween.new()
+	bubbleCreatorHandle.default_color = Color.RED
+	SignalManager.textPopup.emit(lineCenterPoint,txt, false)
+	mS = mouseState.IN_PROGRESS
+	await s.createTween(bubbleCreatorHandle,"default_color",Color(0,-1,-1),0.5, null).anotherParallel().\
+	createTween(bubbleCreatorHandle,"width",10,0.5,curveWrongHighlight).tweenDone
+	mS = mouseState.IDLE
+	bubbleCreatorHandle.default_color = Color.WHITE
+	finishCreatingBubble()
 
 func OnGameStarting():
 	pass

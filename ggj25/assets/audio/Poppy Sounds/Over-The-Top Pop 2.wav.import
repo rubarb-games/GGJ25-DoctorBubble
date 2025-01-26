@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bx6b0540vfucr"
+path="res://.godot/imported/Over-The-Top Pop 2.wav-7883122914cd797263d9fc202409639a.sample"
+
+[deps]
+
+source_file="res://assets/audio/Poppy Sounds/Over-The-Top Pop 2.wav"
+dest_files=["res://.godot/imported/Over-The-Top Pop 2.wav-7883122914cd797263d9fc202409639a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

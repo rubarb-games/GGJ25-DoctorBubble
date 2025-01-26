@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=4 uid="uid://c5bw5krxyi4lj"]
+[gd_scene load_steps=89 format=4 uid="uid://c5bw5krxyi4lj"]
 
 [ext_resource type="Texture2D" uid="uid://b4pfda6n6xdqy" path="res://assets/art/doctorBubble/DoctorBubble_animsA_doctorBubble.png" id="1_4i4pa"]
 [ext_resource type="Script" path="res://game_manager.gd" id="1_15tj7"]
@@ -20,14 +20,34 @@
 [ext_resource type="PackedScene" uid="uid://rrsf4s44cf2x" path="res://bubble_large.tscn" id="7_h67ck"]
 [ext_resource type="Script" path="res://ui_manager.gd" id="9_8ysmm"]
 [ext_resource type="Script" path="res://camera_controller.gd" id="9_52gyi"]
+[ext_resource type="PackedScene" uid="uid://e31myvh44x3v" path="res://assets/levelSegmentStartA_PlatformBlocks.tscn" id="9_lp0ic"]
+[ext_resource type="Script" path="res://audio_manager.gd" id="10_5xfh6"]
+[ext_resource type="AudioStream" uid="uid://bf14hsxrnttbq" path="res://assets/audio/Poppy Sounds/Cute Pop 1.wav" id="11_hpml6"]
+[ext_resource type="PackedScene" uid="uid://c38gkfc5xa5i8" path="res://assets/enemy_block_patrol.tscn" id="12_33wf2"]
+[ext_resource type="AudioStream" uid="uid://c7x6y6gmnkf2b" path="res://assets/audio/Poppy Sounds/Cute Pop 2.wav" id="12_o3fav"]
+[ext_resource type="AudioStream" uid="uid://8k4pq5h4i0el" path="res://assets/audio/Poppy Sounds/Cute Pop 3.wav" id="13_7trdd"]
+[ext_resource type="AudioStream" uid="uid://cqg61dvbwd2p4" path="res://assets/audio/Poppy Sounds/Hard Pop 1.wav" id="14_kplm2"]
 [ext_resource type="Texture2D" uid="uid://bafbrfdjw1xds" path="res://icon.svg" id="15_412vw"]
 [ext_resource type="Script" path="res://achievement_data.gd" id="15_ivmo0"]
+[ext_resource type="AudioStream" uid="uid://ceq064u5ci4yn" path="res://assets/audio/Poppy Sounds/Hard Pop 2.wav" id="15_scivc"]
+[ext_resource type="AudioStream" uid="uid://wr2y2oy60h7m" path="res://assets/audio/Poppy Sounds/Hard Pop 3.wav" id="16_i87c3"]
 [ext_resource type="Texture2D" uid="uid://xiyta8e6hmt4" path="res://assets/art/nokia.png" id="16_sh8lr"]
+[ext_resource type="AudioStream" uid="uid://cvcn4lty281iw" path="res://assets/audio/Poppy Sounds/Hard Pop 4.wav" id="17_fsblk"]
 [ext_resource type="Texture2D" uid="uid://cedd572q1hiv7" path="res://assets/art/waffle.png" id="17_mbsux"]
 [ext_resource type="Texture2D" uid="uid://dgottarr0eh0l" path="res://assets/art/sneakers.png" id="17_xqx1v"]
+[ext_resource type="AudioStream" uid="uid://tdtn0xh56172" path="res://assets/audio/Poppy Sounds/Layered Pop 1.wav" id="18_7aieh"]
 [ext_resource type="Texture2D" uid="uid://fnmyk7wjm630" path="res://assets/art/background.png" id="18_duygc"]
 [ext_resource type="Texture2D" uid="uid://bedfthcnhys8r" path="res://assets/art/Alarm.png" id="19_bgyuq"]
+[ext_resource type="AudioStream" uid="uid://dvcjnrwwi1yj6" path="res://assets/audio/Poppy Sounds/Mouth Pop 1.wav" id="19_mflvs"]
 [ext_resource type="Texture2D" uid="uid://uefjm7euxv8a" path="res://assets/art/NewYork.png" id="19_vmmuh"]
+[ext_resource type="AudioStream" uid="uid://bimn654tw3agj" path="res://assets/audio/jump.wav" id="20_15rno"]
+[ext_resource type="AudioStream" uid="uid://cnht16hvop1dh" path="res://assets/audio/Walk.wav" id="20_jil3n"]
+[ext_resource type="AudioStream" uid="uid://delo8c17j3q17" path="res://assets/audio/BubbleDie.wav" id="21_avqtr"]
+[ext_resource type="AudioStream" uid="uid://dbqtaxuusa04e" path="res://assets/audio/BubbleCreate.wav" id="21_mdx5d"]
+[ext_resource type="AudioStream" uid="uid://da8ult8ehphm1" path="res://assets/audio/powerUp.wav" id="23_egpja"]
+[ext_resource type="AudioStream" uid="uid://kiodhv4drtq5" path="res://assets/audio/Oliver Getz - Tropical Set Part 2.wav" id="25_kddis"]
+[ext_resource type="Texture2D" uid="uid://332t11fw1m3s" path="res://assets/art/Circle.png" id="44_kx67a"]
+[ext_resource type="Theme" uid="uid://bt8yhio702x68" path="res://assets/AllTextTheme.tres" id="44_y03hd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ck2pn"]
 transparency = 2
@@ -165,6 +185,10 @@ states/Walking/position = Vector2(573, 191)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_56gll"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_4r8ny"), "Idle", "Jumping", SubResource("AnimationNodeStateMachineTransition_yjjqe"), "Walking", "Jumping", SubResource("AnimationNodeStateMachineTransition_raaxu"), "Jumping", "Idle", SubResource("AnimationNodeStateMachineTransition_plnto"), "Jumping", "Walking", SubResource("AnimationNodeStateMachineTransition_3xc6j"), "Jumping", "Death", SubResource("AnimationNodeStateMachineTransition_3sitb"), "Walking", "Death", SubResource("AnimationNodeStateMachineTransition_6x5qu"), "Idle", "Death", SubResource("AnimationNodeStateMachineTransition_6bld0"), "Death", "Idle", SubResource("AnimationNodeStateMachineTransition_uhmm6"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_8bopw")]
 graph_offset = Vector2(22, -25)
 
+[sub_resource type="Curve" id="Curve_chj4s"]
+_data = [Vector2(0, 0.498899), 0.0, 0.0, 0, 0, Vector2(0.127119, 0.656388), 0.0, 0.0, 0, 0, Vector2(0.30791, 0.305617), 0.0, 0.0, 0, 0, Vector2(0.485876, 0.842511), 0.0, 0.0, 0, 0, Vector2(0.669491, 0.298458), 0.0, 0.0, 0, 0, Vector2(0.757062, 0.627753), 0.0, 0.0, 0, 0, Vector2(1, 0.498899), 0.0, 0.0, 0, 0]
+point_count = 7
+
 [sub_resource type="Curve" id="Curve_th3ij"]
 min_value = -1.0
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.260143, -1), 0.0, 0.0, 0, 0, Vector2(0.446301, -1), 0.0, 0.0, 0, 0, Vector2(0.563246, 1), 0.0, 0.0, 0, 0, Vector2(0.782816, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -199,6 +223,10 @@ max_value = 2.0
 _data = [Vector2(0, 0.0329671), 0.0, 0.0, 0, 0, Vector2(0.0684211, 1.24176), 0.0, 0.0, 0, 0, Vector2(0.236842, 0.483517), 2.21073, 2.21073, 0, 0, Vector2(0.405263, 1.07692), 0.0, 0.0, 0, 0, Vector2(0.621053, 1.01099), 0.0, 0.0, 0, 0]
 point_count = 5
 
+[sub_resource type="Curve" id="Curve_vnqfv"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.0883055, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="Curve" id="Curve_k31nm"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.117978, 1), 0.0, 0.0, 0, 0, Vector2(0.331461, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
@@ -219,30 +247,34 @@ point_count = 11
 [sub_resource type="Resource" id="Resource_u78v5"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
-scoreTreshold = 100.0
+scoreTreshold = 200.0
 rewardSprite = ExtResource("16_sh8lr")
-rewardText = "100 points!!! Strong as a Nokia"
+rewardText = "200 points!!!\\n Strong as a\\n Nokia"
 
 [sub_resource type="Resource" id="Resource_xgt63"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
-scoreTreshold = 200.0
+scoreTreshold = 700.0
 rewardSprite = ExtResource("17_xqx1v")
-rewardText = "200!! Hell yeah"
+rewardText = "700!! \\nHell yeah"
 
 [sub_resource type="Resource" id="Resource_6g558"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
-scoreTreshold = 300.0
+scoreTreshold = 400.0
 rewardSprite = ExtResource("17_mbsux")
-rewardText = "WAFFLEICIOUS"
+rewardText = "400!! \\n WAFFLEICIOUS"
 
 [sub_resource type="Resource" id="Resource_6lt5r"]
 script = ExtResource("15_ivmo0")
 hasBeenActivated = false
-scoreTreshold = 400.0
+scoreTreshold = 1000.0
 rewardSprite = ExtResource("19_bgyuq")
-rewardText = "Pro gamer alert!"
+rewardText = "1000! \\n Pro gamer \\n alert!"
+
+[sub_resource type="Curve" id="Curve_lh7pq"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.112172, 1), 0.0, 0.0, 0, 0, Vector2(0.494033, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
 
 [node name="Scene" type="Node2D"]
 
@@ -264,7 +296,7 @@ bones/0/name = "Root"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.720921, 0.105501)
 bones/0/enabled = true
-bones/0/position = Vector3(0, -0.73794, 0.105501)
+bones/0/position = Vector3(0, -0.723351, 0.105501)
 bones/0/rotation = Quaternion(0, 0, 0, 1)
 bones/0/scale = Vector3(1, 1, 1)
 bones/1/name = "Head"
@@ -272,7 +304,7 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.720921, 0)
 bones/1/enabled = true
 bones/1/position = Vector3(0, 0.720921, 0)
-bones/1/rotation = Quaternion(-0.0393562, -6.60162e-19, 6.44e-18, 0.999225)
+bones/1/rotation = Quaternion(0.00693955, 0, 0, 0.999976)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "shoulder_R"
 bones/2/parent = 0
@@ -314,7 +346,7 @@ bones/7/parent = -1
 bones/7/rest = Transform3D(1, 0, -6.27833e-07, -6.27833e-07, 0, -1, 0, 1, 0, 0, -1.05281, 0.360461)
 bones/7/enabled = true
 bones/7/position = Vector3(-2.16686e-16, -1.05281, 0.360461)
-bones/7/rotation = Quaternion(0.707107, -2.21973e-07, -2.21973e-07, 0.707107)
+bones/7/rotation = Quaternion(0.707107, -2.21972e-07, -2.21972e-07, 0.707107)
 bones/7/scale = Vector3(1, 1, 1)
 
 [node name="Plane_002" type="MeshInstance3D" parent="Node3d_doctorBubble/SubViewport/DoctorBubble/DoctorBubble_animsA/DoctorBubble_Arm/Skeleton3D"]
@@ -346,6 +378,51 @@ size = 1.5
 script = ExtResource("1_15tj7")
 levelHandle = NodePath("../../Level")
 startingPlatform = ExtResource("4_5sriq")
+startingLevelArr = Array[PackedScene]([ExtResource("9_lp0ic")])
+
+[node name="AudioManager" type="Node2D" parent="Managers" node_paths=PackedStringArray("streamPlayer", "music", "jumpSound", "dieSound", "walkSound", "achievementSound", "bubbleMake", "bubbleDie")]
+script = ExtResource("10_5xfh6")
+streamPlayer = NodePath("AudioStreamPlayer2D")
+popSounds = Array[AudioStream]([ExtResource("11_hpml6"), ExtResource("12_o3fav"), ExtResource("13_7trdd"), ExtResource("14_kplm2"), ExtResource("15_scivc"), ExtResource("16_i87c3"), ExtResource("17_fsblk"), ExtResource("18_7aieh"), ExtResource("19_mflvs")])
+music = NodePath("AudioStreamPlayer2D_Music")
+jumpSound = NodePath("AudioStreamPlayer2D_jump")
+dieSound = NodePath("AudioStreamPlayer2D_Die")
+walkSound = NodePath("AudioStreamPlayer2D_walk")
+buttonSound = ExtResource("20_jil3n")
+enemyOnScreen = ExtResource("23_egpja")
+achievementSound = NodePath("AudioStreamPlayer2D_Achievements")
+bubbleMake = NodePath("AudioStreamPlayer2D_bubbleMake")
+bubbleDie = NodePath("AudioStreamPlayer2D_bubbleDie")
+musicCurve = SubResource("Curve_chj4s")
+
+[node name="AudioStreamPlayer2D_walk" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("20_jil3n")
+volume_db = 2.0
+
+[node name="AudioStreamPlayer2D_jump" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("20_15rno")
+volume_db = 2.0
+
+[node name="AudioStreamPlayer2D_Die" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("21_avqtr")
+volume_db = 2.0
+
+[node name="AudioStreamPlayer2D_bubbleMake" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("21_mdx5d")
+volume_db = -2.0
+
+[node name="AudioStreamPlayer2D_bubbleDie" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("11_hpml6")
+volume_db = 8.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+max_distance = 600.0
+
+[node name="AudioStreamPlayer2D_Music" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("25_kddis")
+
+[node name="AudioStreamPlayer2D_Achievements" type="AudioStreamPlayer2D" parent="Managers/AudioManager"]
+stream = ExtResource("23_egpja")
 
 [node name="Level" type="Node2D" parent="."]
 
@@ -361,6 +438,9 @@ position = Vector2(85, 191)
 position = Vector2(17, 191)
 
 [node name="EnemyBlock_arrowTrap" parent="Level/LevelGeometry" instance=ExtResource("5_cmqkf")]
+
+[node name="EnemyBlock_patrol" parent="Level/LevelGeometry" instance=ExtResource("12_33wf2")]
+position = Vector2(96, 648)
 
 [node name="ArrowBullet" parent="Level/LevelGeometry" instance=ExtResource("6_dxrct")]
 position = Vector2(-120, 784)
@@ -447,6 +527,7 @@ bubbleLargeHandle = ExtResource("7_h67ck")
 mouseIndicatorParticles = NodePath("../MouseIndicator")
 bubbleCreatorHandle = NodePath("../Line2D")
 perfectLineJiggleCurve = SubResource("Curve_a1pv5")
+curveWrongHighlight = SubResource("Curve_vnqfv")
 
 [node name="MouseIndicator" type="CPUParticles2D" parent="Specials"]
 position = Vector2(-67, 420)
@@ -469,8 +550,9 @@ script = ExtResource("9_52gyi")
 width = 3.0
 
 [node name="Bubble_small" parent="." instance=ExtResource("6_eoekv")]
+position = Vector2(-400, 128)
 
-[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle", "scoreboardPopupHandle", "scoreboardPopupLabelHandle", "scoreboardPopupImageHandle", "backgroundImage", "fadeToWhiteHandle", "fadeToBlackHandle")]
+[node name="UI" type="Control" parent="." node_paths=PackedStringArray("resourceCounterParentHandle", "startMenuHandle", "tutorialMenuHandle", "endMenuHandle", "scoreboardHandle", "scoreboardPopupHandle", "scoreboardPopupLabelHandle", "scoreboardPopupImageHandle", "backgroundImage", "fadeToWhiteHandle", "fadeToBlackHandle", "ingamePopupTextHandle", "ingamePopupTextSmallHandle")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 10
@@ -495,6 +577,9 @@ backgroundRotationCurve = SubResource("Curve_u8fcg")
 allAchiData = Array[ExtResource("15_ivmo0")]([SubResource("Resource_u78v5"), SubResource("Resource_xgt63"), SubResource("Resource_6g558"), SubResource("Resource_6lt5r")])
 fadeToWhiteHandle = NodePath("CanvasLayer/ScreenFlash")
 fadeToBlackHandle = NodePath("CanvasLayer/FadeToBlack")
+ingamePopupTextHandle = NodePath("CanvasLayer/Label_textPopup")
+ingamePopupTextSmallHandle = NodePath("CanvasLayer/Label_textPopupSmall")
+ingamePopupTextCurve = SubResource("Curve_lh7pq")
 
 [node name="CanvasLayer_IngameInterace" type="CanvasLayer" parent="UI"]
 layer = 2
@@ -511,6 +596,7 @@ offset_top = 31.0
 offset_right = 449.0
 offset_bottom = 95.0
 pivot_offset = Vector2(32, 32)
+theme = ExtResource("44_y03hd")
 text = "666"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -520,41 +606,101 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -88.0
-offset_top = 47.0
+offset_top = 64.0
 offset_right = 88.0
-offset_bottom = 79.0
+offset_bottom = 96.0
 grow_horizontal = 2
 alignment = 1
 
-[node name="ColorRect" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
 [node name="ColorRect2" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer/ColorRect2"]
+layout_mode = 2
+offset_left = -64.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 65.0
+scale = Vector2(0.261532, 0.261532)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("44_kx67a")
 
 [node name="ColorRect3" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer/ColorRect3"]
+layout_mode = 2
+offset_left = -64.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 65.0
+scale = Vector2(0.261532, 0.261532)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("44_kx67a")
 
 [node name="ColorRect4" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer/ColorRect4"]
+layout_mode = 2
+offset_left = -64.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 65.0
+scale = Vector2(0.261532, 0.261532)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("44_kx67a")
 
 [node name="ColorRect5" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer/ColorRect5"]
+layout_mode = 2
+offset_left = -64.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 65.0
+scale = Vector2(0.261532, 0.261532)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("44_kx67a")
+
+[node name="ColorRect6" type="ColorRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(1, 1, 1, 0)
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer_IngameInterace/HBoxContainer/ColorRect6"]
+layout_mode = 2
+offset_left = -64.0
+offset_top = -63.0
+offset_right = 64.0
+offset_bottom = 65.0
+scale = Vector2(0.261532, 0.261532)
+pivot_offset = Vector2(64, 64)
+texture = ExtResource("44_kx67a")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="UI"]
 
@@ -563,8 +709,11 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 152.0
+offset_bottom = 152.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.484746, 0.484746)
 pivot_offset = Vector2(240, 400)
 
 [node name="Sprite2D2" type="Sprite2D" parent="UI/CanvasLayer/Scoreboard"]
@@ -590,6 +739,8 @@ offset_right = 42.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("44_y03hd")
+theme_override_constants/outline_size = 30
 theme_override_font_sizes/font_size = 48
 text = "HELL YEAH"
 horizontal_alignment = 1
@@ -620,6 +771,7 @@ offset_left = 83.0
 offset_top = 278.0
 offset_right = 383.0
 offset_bottom = 578.0
+theme = ExtResource("44_y03hd")
 bbcode_enabled = true
 text = "[center]The bubbler
 
@@ -639,6 +791,7 @@ offset_right = 47.0
 offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("44_y03hd")
 text = "Start game"
 
 [node name="EndMenu" type="Control" parent="UI/CanvasLayer"]
@@ -666,6 +819,7 @@ offset_left = 83.0
 offset_top = 278.0
 offset_right = 383.0
 offset_bottom = 578.0
+theme = ExtResource("44_y03hd")
 bbcode_enabled = true
 text = "[center]You died a most embarrasing death
 
@@ -685,6 +839,7 @@ offset_right = 47.0
 offset_bottom = -110.0
 grow_horizontal = 2
 grow_vertical = 0
+theme = ExtResource("44_y03hd")
 text = "Sure, why not?"
 
 [node name="TutorialMenu" type="Control" parent="UI/CanvasLayer"]
@@ -758,6 +913,35 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Label_textPopup" type="Label" parent="UI/CanvasLayer"]
+custom_minimum_size = Vector2(400, 0)
+offset_left = -496.0
+offset_top = 384.0
+offset_right = -96.0
+offset_bottom = 448.0
+pivot_offset = Vector2(200, 32)
+theme = ExtResource("44_y03hd")
+theme_override_colors/font_outline_color = Color(0.870179, 0.436609, 0.72802, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 25
+text = "TextTEXTTEX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label_textPopupSmall" type="Label" parent="UI/CanvasLayer"]
+offset_left = -248.0
+offset_top = 488.0
+offset_right = -120.0
+offset_bottom = 552.0
+pivot_offset = Vector2(64, 32)
+theme = ExtResource("44_y03hd")
+theme_override_colors/font_outline_color = Color(0.985705, 0.676475, 0.901999, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 20
+text = "smalltext"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="UI"]
 layer = -1

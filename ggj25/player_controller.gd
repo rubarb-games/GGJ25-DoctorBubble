@@ -23,13 +23,18 @@ var walkingAnimTween:SimonTween
 
 @export var animTreeHandle:AnimationTree
 
+var walkTimer:float = 0
+var walkTimerTreshold:float = 0.3
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SignalManager.startingGame.connect(OnStartingGame)
 	SignalManager.restartingGame.connect(OnStartingGame)
 	SignalManager.endGame.connect(OnEndGame)
 	SignalManager.cameraInPlaceForStart.connect(OnCameraInPlace)
+	
 	SignalManager.hitByBullet.connect(OnHitByBullet)
+	SignalManager.hitByEnemy.connect(OnHitByEnemy)
 	
 	Globals.playerHandle = self
 	walkingAnimTween = SimonTween.new()
@@ -45,6 +50,12 @@ func _physics_process(delta):
 
 	match pS:
 		pStatus.ON_GROUND:
+			if pA == pAction.WALKING:
+				walkTimer += delta
+				if (walkTimer > walkTimerTreshold):
+					walkTimer = 0
+					SignalManager.playerWalk.emit()
+					
 			moveDirection += takePlayerInput()
 			if (Input.is_action_just_pressed("Player Interact")):
 				OnAnimJumping()
@@ -85,6 +96,7 @@ func isPlayerWithinCameraBounds():
 		
 
 func jump(f:float = jumpForce):
+	SignalManager.playerJump.emit()
 	leaveBubble()
 	if (pS != pStatus.INTRO):
 		pS = pStatus.IN_AIR
@@ -125,7 +137,7 @@ func OnIntro():
 	collision_mask = (1 << 0) | (0 << 1) | (1 << 2)
 	self.global_position.y = Globals.cameraHandle.global_position.y + Globals.GetHalfViewHeight() - (Globals.cellSize*2)
 	self.global_position.x = Globals.cameraHandle.global_position.x
-	jump(jumpForce*1.5)
+	jump(jumpForce*0.75)
 
 func OnEndGame():
 	playerActive = false
@@ -138,6 +150,7 @@ func playerOffscreen():
 	playerDie()
 	
 func playerDie():
+	SignalManager.playerDie.emit()
 	setAnimCondition("animDeath",true, true)
 	SignalManager.endGame.emit()
 	
@@ -147,10 +160,9 @@ func OnAnimWalking():
 	pA = pAction.WALKING
 	walkingAnimTween.stop()
 	setAnimCondition("animWalk",true,true)
-	playerVisualHandle.rotation = 0
-		
 	walkingAnimTween = SimonTween.new()
-	walkingAnimTween.createTween(playerVisualHandle,"rotation",deg_to_rad(4),0.3,walkingAnimCurve).setLoops(-1)
+	walkingAnimTween.createTween(playerVisualHandle,"position:y",-2,0.2,walkingAnimCurve).setLoops(-1)
+	playerVisualHandle.position.y = 0
 	
 func OnAnimIdle():
 	if (pA == pAction.IDLE or !walkingAnimTween):
@@ -199,8 +211,14 @@ func OnHitByBullet(body,bullet:BulletController):
 	if (body == self and playerActive):
 		lock_rotation = false
 		linear_velocity = Vector2.ZERO
-		apply_impulse((bullet.direction * (jumpForce/5))+Vector2(0,randf_range(-2,0))*jumpForce,bullet.global_position)
+		if (bullet):
+			apply_impulse((bullet.direction * (jumpForce/5))+Vector2(0,randf_range(-2,0))*jumpForce,bullet.global_position)
+		else:
+			apply_impulse((bullet.direction * (jumpForce/5))+Vector2(0,randf_range(-2,0))*jumpForce)
 		apply_torque(1500)
 		
 		if (playerActive):
 			playerDie()
+
+func OnHitByEnemy(body):
+	OnHitByBullet(body, null)
